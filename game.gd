@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,5 +11,5 @@ func _process(delta):
 	pass
 
 
-func _on_menu_button_pressed():
+func _on_main_menu_pressed():
 	SceneManager.go_to("main_menu")

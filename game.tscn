@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://rl5fjnwjo0b2"]
+
+[ext_resource type="Script" uid="uid://oj1jk4pb0e8u" path="res://game.gd" id="1_80nbo"]
+
+[node name="Game" type="Node" unique_id=1275175939]
+script = ExtResource("1_80nbo")
+
+[node name="UI" type="Control" parent="." unique_id=47031167]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="FoldableContainer" type="FoldableContainer" parent="DebuggingUI" unique_id=580711963]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset_ratio = Vector2(1, 1)
+folded = true
+title = "🐛"
+title_alignment = 1
+title_position = 1
+
+[node name="MainMenu" type="Button" parent="DebuggingUI/FoldableContainer" unique_id=1756259338]
+visible = false
+layout_mode = 2
+text = "return to menu"
+
+[connection signal="pressed" from="DebuggingUI/FoldableContainer/MainMenu" to="." method="_on_main_menu_pressed"]

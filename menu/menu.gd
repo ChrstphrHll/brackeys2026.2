@@ -5,4 +5,4 @@ extends CenterContainer
 
 
 func _on_play_button_pressed():
-	SceneManager.go_to("testing_scene")
+	SceneManager.go_to("game")

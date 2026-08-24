@@ -3,7 +3,7 @@ extends Node
 
 var SCENE_PATHS: Dictionary = {
 	"main_menu": "res://menu/menu.tscn",
-	"testing_scene": "res://testing_scene.tscn"
+	"game": "res://game.tscn"
 }
 
 
