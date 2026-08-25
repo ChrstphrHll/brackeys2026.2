@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://rl5fjnwjo0b2"]
 
 [ext_resource type="Script" uid="uid://oj1jk4pb0e8u" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://dnk21g31ndx2p" path="res://machines/machine.tscn" id="2_e2o6t"]
 
 [node name="Game" type="Node" unique_id=1275175939]
 script = ExtResource("1_80nbo")
@@ -12,6 +13,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Timer" type="Timer" parent="UI" unique_id=2051743527]
+wait_time = 0.301
+
+[node name="Machine" parent="UI" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
+layout_mode = 1
+machine_name = "no one"
 
 [node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
 layout_mode = 3
@@ -30,19 +38,28 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -31.0
+offset_left = -708.0
+offset_top = -391.0
+offset_right = -568.0
+offset_bottom = -328.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset_ratio = Vector2(1, 1)
-folded = true
 title = "🐛"
 title_alignment = 1
 title_position = 1
 
-[node name="MainMenu" type="Button" parent="DebuggingUI/FoldableContainer" unique_id=1756259338]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="DebuggingUI/FoldableContainer" unique_id=1138503624]
 layout_mode = 2
-text = "return to menu"
 
-[connection signal="pressed" from="DebuggingUI/FoldableContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[node name="MainMenu" type="Button" parent="DebuggingUI/FoldableContainer/VBoxContainer" unique_id=1756259338]
+layout_mode = 2
+text = "return to menu!"
+
+[node name="AddWood" type="Button" parent="DebuggingUI/FoldableContainer/VBoxContainer" unique_id=739395945]
+layout_mode = 2
+text = "add wood"
+
+[connection signal="timeout" from="UI/Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/AddWood" to="." method="_on_add_wood_pressed"]

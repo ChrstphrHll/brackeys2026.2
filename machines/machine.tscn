@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dnk21g31ndx2p"]
+
+[ext_resource type="Script" uid="uid://tfudkjiyu4gd" path="res://machines/machine.gd" id="1_2sueh"]
+
+[node name="Machine" type="Control" unique_id=1930575906]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2sueh")
+
+[node name="Label" type="Label" parent="." unique_id=1699979961]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
