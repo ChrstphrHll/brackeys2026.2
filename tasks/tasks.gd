@@ -1,3 +1,4 @@
 extends Node
 
-var time
+func gather_resources(resource, undertaker): 
+	pass

@@ -6,6 +6,13 @@
 [node name="Game" type="Node" unique_id=1275175939]
 script = ExtResource("1_80nbo")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1515006803]
+offset_left = -28.0
+offset_top = -39.0
+offset_right = 1238.0
+offset_bottom = 720.0
+color = Color(0.69803923, 0.69803923, 0.627451, 1)
+
 [node name="UI" type="Control" parent="." unique_id=47031167]
 layout_mode = 3
 anchors_preset = 15
@@ -14,12 +21,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Timer" type="Timer" parent="UI" unique_id=2051743527]
-wait_time = 0.301
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=1009556227]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 805.0
+offset_bottom = 86.0
+color = Color(0.7273021, 0.62820613, 0.9454588, 1)
 
-[node name="Machine" parent="UI" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
+[node name="Machines" type="VBoxContainer" parent="UI" unique_id=1846919649]
 layout_mode = 1
-machine_name = "no one"
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -277.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Machine" parent="UI/Machines" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
+layout_mode = 2
+
+[node name="Machine2" parent="UI/Machines" unique_id=1152607113 instance=ExtResource("2_e2o6t")]
+layout_mode = 2
+
+[node name="Machine3" parent="UI/Machines" unique_id=247134514 instance=ExtResource("2_e2o6t")]
+layout_mode = 2
 
 [node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
 layout_mode = 3
@@ -38,10 +65,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -708.0
-offset_top = -391.0
-offset_right = -568.0
-offset_bottom = -328.0
+offset_left = -142.0
+offset_top = -98.0
+offset_right = -2.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset_ratio = Vector2(1, 1)
@@ -60,6 +86,5 @@ text = "return to menu!"
 layout_mode = 2
 text = "add wood"
 
-[connection signal="timeout" from="UI/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/AddWood" to="." method="_on_add_wood_pressed"]

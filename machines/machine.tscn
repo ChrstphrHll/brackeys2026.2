@@ -1,17 +1,69 @@
 [gd_scene format=3 uid="uid://dnk21g31ndx2p"]
 
 [ext_resource type="Script" uid="uid://tfudkjiyu4gd" path="res://machines/machine.gd" id="1_2sueh"]
+[ext_resource type="Texture2D" uid="uid://b58r61ks3ekh5" path="res://icon.svg" id="2_loaj5"]
 
-[node name="Machine" type="Control" unique_id=1930575906]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="Gradient" id="Gradient_loaj5"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e2bbn"]
+gradient = SubResource("Gradient_loaj5")
+width = 16
+height = 16
+fill_from = Vector2(0.052173913, 0.05652174)
+fill_to = Vector2(0.22173913, 0.20434782)
+repeat = 1
+
+[node name="Machine" type="PanelContainer" unique_id=1152607113]
+offset_right = 277.0
+offset_bottom = 47.0
 script = ExtResource("1_2sueh")
 
-[node name="Label" type="Label" parent="." unique_id=1699979961]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1217634481]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=725853659]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=875134593]
+layout_mode = 2
+
+[node name="Machine Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=650198521]
+layout_mode = 2
+texture = ExtResource("2_loaj5")
+expand_mode = 3
+
+[node name="Machine Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1699979961]
+layout_mode = 2
+text = "a really long testing name"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1198078763]
+layout_mode = 2
+text = "🐛"
+
+[node name="MenuButton" type="MenuButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2044915811]
+layout_mode = 2
+icon = SubResource("GradientTexture2D_e2bbn")
+switch_on_hover = true
+item_count = 2
+popup/item_0/text = "test"
+popup/item_0/id = 0
+popup/item_1/text = "test2"
+popup/item_1/id = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=133164056]
+layout_mode = 2
+step = 0.001
+fill_mode = 1
+show_percentage = false
+
+[node name="TaskTimer" type="Timer" parent="." unique_id=1276119578]
+wait_time = 3.026
+one_shot = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="timeout" from="TaskTimer" to="." method="_on_task_timer_timeout"]
