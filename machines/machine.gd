@@ -3,17 +3,18 @@ extends Control
 class_name Machine
 
 @export var machine_name: String = "test"
-var currentTask
+var current_task: String
 
-var speed = 10
+var speed = 1
 var efficiency = 10
 @onready var task_timer: Timer = $TaskTimer
-@onready var test = $MarginContainer/VBoxContainer/HBoxContainer/MenuButton
+@onready var task_selector = $MarginContainer/VBoxContainer/HBoxContainer/MenuButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-	
+	task_selector.get_popup().id_pressed.connect(_task_menu_trigger)
+	task_selector.get_popup().add_item("test item", 100111, 1)
+	task_selector.get_popup().add_item("test ew")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,31 +22,25 @@ func _process(delta):
 	$MarginContainer/VBoxContainer/ProgressBar.value = task_timer.time_left
 
 
-func start_resource_gathering_task(resource: String):
-	task_timer.start()
-	print("hypothetically started timer")
+func _task_menu_trigger(id: int):
+	print(id)
 
 
-func get_task_time(speed, resource):
-	return speed * Resources.get_resource_difficulty(resource)
-	
-
-func get_gathering_result(efficiency, resource):
-	return efficiency * Resources.get_resource_abundance(resource)
-
-
-func implement_consequence():
+func implement_consequence(task_name):
 	pass
 
 
 func _on_button_pressed():
-	start_resource_gathering_task("wood")
-
-func _on_task_timer_timeout():
-	Resources.modify_resource("wood", 100)
-	implement_consequence()
+	Tasks.start_gather_task("wood", self)
 
 
-func _on_menu_button_button_down():
-	print('menu button down')
-	pass # Replace with function body.
+func start_task(task_name: String, time_cost: int, bound_callback: Callable):
+	current_task = task_name
+	task_timer.timeout.connect(bound_callback)
+	task_timer.start(time_cost)
+
+
+func end_task(bound_callback):
+	implement_consequence(current_task)
+	task_timer.timeout.disconnect(bound_callback)
+	current_task = ""
