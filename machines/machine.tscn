@@ -48,11 +48,6 @@ text = "🐛"
 layout_mode = 2
 icon = SubResource("GradientTexture2D_e2bbn")
 switch_on_hover = true
-item_count = 2
-popup/item_0/text = "test"
-popup/item_0/id = 0
-popup/item_1/text = "test2"
-popup/item_1/id = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=133164056]
 layout_mode = 2

@@ -7,14 +7,14 @@ var current_task: String
 
 var speed = 1
 var efficiency = 10
+
 @onready var task_timer: Timer = $TaskTimer
 @onready var task_selector = $MarginContainer/VBoxContainer/HBoxContainer/MenuButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	task_selector.get_popup().id_pressed.connect(_task_menu_trigger)
-	task_selector.get_popup().add_item("test item", 100111, 1)
-	task_selector.get_popup().add_item("test ew")
+	var tasks = Tasks.task_list.map(_add_task_option)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,15 +23,15 @@ func _process(delta):
 
 
 func _task_menu_trigger(id: int):
-	print(id)
+	Tasks.task_list[id].start.call(self)
+
+
+func _add_task_option(task):
+	task_selector.get_popup().add_item(task.title)
 
 
 func implement_consequence(task_name):
 	pass
-
-
-func _on_button_pressed():
-	Tasks.start_gather_task("wood", self)
 
 
 func start_task(task_name: String, time_cost: int, bound_callback: Callable):
