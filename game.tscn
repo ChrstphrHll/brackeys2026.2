@@ -43,12 +43,6 @@ grow_vertical = 2
 [node name="Machine" parent="UI/Machines" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
 layout_mode = 2
 
-[node name="Machine2" parent="UI/Machines" unique_id=1152607113 instance=ExtResource("2_e2o6t")]
-layout_mode = 2
-
-[node name="Machine3" parent="UI/Machines" unique_id=247134514 instance=ExtResource("2_e2o6t")]
-layout_mode = 2
-
 [node name="ResourceDisplay" type="HBoxContainer" parent="UI" unique_id=1186182925]
 layout_mode = 0
 offset_left = 6.0

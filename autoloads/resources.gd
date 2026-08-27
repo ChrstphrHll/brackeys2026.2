@@ -9,6 +9,11 @@ var _resources = {
 		"difficulty": 1,
 		"abundance": 1,
 		"icon": preload("res://assets/WoodResource.png")
+	},
+	"scrap": {
+		"amount": 0,
+		"difficulty": 2,
+		"abundance": 0.2
 	}
 }
 
