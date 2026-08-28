@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dc7en3xkyv1dp"]
+
+[ext_resource type="Script" path="res://ui/cutscene.gd" id="1_hulut"]
+
+[node name="Cutscene" type="ColorRect" unique_id=926457140]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_hulut")
+
+[node name="Story" type="Label" parent="." unique_id=1043590508]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 510.0
+offset_right = 795.0
+offset_bottom = 559.0
+text = "test a story that is quire lit"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Image" type="TextureRect" parent="." unique_id=2111674704]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 54.0
+offset_right = 1057.0
+offset_bottom = 466.0
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Timer" type="Timer" parent="." unique_id=1157143006]
+wait_time = 6.487
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
