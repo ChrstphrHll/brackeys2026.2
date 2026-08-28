@@ -31,3 +31,7 @@ func _on_machine_added(machine: Machine):
 func add_new_machine():
 	var test_machine = Machine.new()
 	machines.push_back(test_machine)
+
+
+func _on_crafting_button_pressed():
+	$UI/CraftingMenu.show()

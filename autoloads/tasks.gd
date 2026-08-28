@@ -6,14 +6,26 @@ var task_list = Resources.get_resource_names().map(gather_task_factory) + [
 		"title": "Scavenge",
 		"start": start_scavenge_task,
 		"end": end_scavenge_task
+	},
+	{
+		"title": "Craft",
+		"start": start_craft_task,
+		"end": end_craft_task
 	}
 ]
+
+
+func start_craft_task(resource, machine: Machine):
+	pass
+
+
+func end_craft_task():
+	pass
 
 
 func gather_task_factory(resource):
 	return {
 		"title": "Gather " + resource,
-		"progressing_title": "Gathering " + resource,
 		"start": start_gather_factory(resource),
 		"end": end_gather_factory(resource)
 	}

@@ -6,14 +6,26 @@ signal resource_changed(resource_name: String, new_amount: int)
 var _resources = {
 	"wood": {
 		"amount": 0,
+		"gatherable": 1,
 		"difficulty": 1,
 		"abundance": 1,
 		"icon": preload("res://assets/WoodResource.png")
 	},
 	"scrap": {
 		"amount": 0,
+		"gatherable": 1,
 		"difficulty": 2,
-		"abundance": 0.2
+		"abundance": 0.2,
+		"icon": preload("res://assets/scrap.png")
+	},
+	"battery": {
+		"amount": 0,
+		"gatherable": -1,
+		"crafting_cost": {
+			"wood": 10,
+			"scrap": 10
+		},
+		"icon": preload("res://assets/scrap.png")
 	}
 }
 
@@ -48,6 +60,18 @@ func get_resource_icon(resource: String):
 		return null
 
 	return _resources[resource].get("icon", null)
+
+
+func get_resource_crafting_cost(resource: String):
+	if not _resources.has(resource):
+		return null
+	
+	var resource_info = _resources[resource]
+	
+	if not resource_info.has("crafting_cost"):
+		return null
+		
+	return resource_info.crafting_cost
 
 
 func get_resource_abundance(resource: String):
