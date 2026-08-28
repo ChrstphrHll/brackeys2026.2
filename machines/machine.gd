@@ -15,6 +15,8 @@ var efficiency = 10
 func _ready():
 	task_selector.get_popup().id_pressed.connect(_task_menu_trigger)
 	var tasks = Tasks.task_list.map(_add_task_option)
+	
+	$MarginContainer/VBoxContainer/HBoxContainer/MachineName.text = machine_name
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,6 +39,7 @@ func implement_consequence(task_name):
 func start_task(task_name: String, time_cost: int, bound_callback: Callable):
 	current_task = task_name
 	task_timer.timeout.connect(bound_callback)
+	$MarginContainer/VBoxContainer/ProgressBar.max_value = time_cost
 	task_timer.start(time_cost)
 
 
