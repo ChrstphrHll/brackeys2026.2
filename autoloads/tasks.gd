@@ -1,7 +1,13 @@
 extends Node
 
 
-var task_list = Resources.get_resource_names().map(gather_task_factory)
+var task_list = Resources.get_resource_names().map(gather_task_factory) + [
+	{
+		"title": "Scavenge",
+		"start": start_scavenge_task,
+		"end": end_scavenge_task
+	}
+]
 
 
 func gather_task_factory(resource):
@@ -27,9 +33,7 @@ func start_gather_task(resource, machine: Machine):
 	var difficulty = Resources.get_resource_difficulty(resource)
 	var time_cost = difficulty * machine.speed
 	
-	machine.task_timer.start(time_cost)
 	machine.start_task(task_name, time_cost, end_gather_task.bind(resource, machine))
-	machine.task_timer.timeout.connect(end_gather_task.bind(resource, machine))
 
 
 func end_gather_task(resource, machine: Machine):
@@ -38,3 +42,16 @@ func end_gather_task(resource, machine: Machine):
 	
 	Resources.modify_resource(resource, resource_gain)
 	machine.end_task(end_gather_task)
+
+
+func start_scavenge_task(machine: Machine):
+	const progressing_title = "Scavenging"
+	
+	machine.start_task(progressing_title, 10, end_scavenge_task.bind(machine))
+	
+
+func end_scavenge_task(machine: Machine):
+	machine.end_task(end_scavenge_task)
+	var scavenge_result = Zones.get_scavenge_result(machine.efficiency)
+	
+	Events.add_machine(scavenge_result)
