@@ -1,13 +1,17 @@
 extends Node
 
 
-
 const machine_scene = preload("res://machines/machine.tscn")
 @onready var machines = [$UI/Machines/Machine]
 
+@onready var tech_tree_button: Button = $UI/TechTreeButton
+@onready var tech_tree_menu = $UI/TechTreeMenu
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	tech_tree_button.pressed.connect(
+		tech_tree_menu.open_menu
+	)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
