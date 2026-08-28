@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dc7en3xkyv1dp"]
+[gd_scene format=3 uid="uid://8ahvfy8n88ym"]
 
-[ext_resource type="Script" path="res://ui/cutscene.gd" id="1_hulut"]
+[ext_resource type="Script" uid="uid://fjnbjp0yvpff" path="res://ui/cutscene.gd" id="1_hulut"]
 
 [node name="Cutscene" type="ColorRect" unique_id=926457140]
 anchors_preset = 15
