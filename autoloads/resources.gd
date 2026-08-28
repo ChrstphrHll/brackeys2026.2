@@ -56,3 +56,20 @@ func get_resource_abundance(resource: String):
 
 func get_resource_difficulty(resource: String):
 	return _resources[resource]["difficulty"]
+
+
+func can_afford(costs: Dictionary) -> bool:
+	for resource_name in costs:
+		var cost: int = costs[resource_name]
+		if get_resource_amount(resource_name) < cost:
+			return false
+	return true
+
+
+func spend_resources(costs: Dictionary) -> bool:
+	if not can_afford(costs):
+		return false
+	for resource_name in costs:
+		var cost: int = costs[resource_name]
+		modify_resource(resource_name, -cost)
+	return true
