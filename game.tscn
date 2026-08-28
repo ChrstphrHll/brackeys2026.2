@@ -31,13 +31,21 @@ offset_right = 805.0
 offset_bottom = 86.0
 color = Color(0.7273021, 0.62820613, 0.9454588, 1)
 
+[node name="ResourceDisplay" type="HBoxContainer" parent="UI" unique_id=1186182925]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 1017.0
+offset_bottom = 66.0
+script = ExtResource("3_feb5d")
+
 [node name="Machines" type="VBoxContainer" parent="UI" unique_id=1846919649]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -277.0
+offset_left = -76.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -98,9 +106,4 @@ layout_mode = 2
 layout_mode = 2
 text = "return to menu!"
 
-[node name="AddWood" type="Button" parent="DebuggingUI/FoldableContainer/VBoxContainer" unique_id=739395945]
-layout_mode = 2
-text = "add wood"
-
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/AddWood" to="." method="_on_add_wood_pressed"]

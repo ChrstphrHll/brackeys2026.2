@@ -21,6 +21,8 @@ SceneManager="*uid://d2q5p2722ddm6"
 Resources="*uid://crlludnpgp5hi"
 TechTree="*uid://bdjksmmx13yy6"
 Tasks="*uid://booll5pu18h2r"
+Zones="*uid://yq6lqfc8wnfe"
+Events="*uid://1a5ammiygx87"
 
 [display]
 
