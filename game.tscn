@@ -52,14 +52,6 @@ grow_vertical = 2
 [node name="Machine" parent="UI/Machines" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
 layout_mode = 2
 
-[node name="ResourceDisplay" type="HBoxContainer" parent="UI" unique_id=1186182925]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 7.0
-offset_right = 1017.0
-offset_bottom = 66.0
-script = ExtResource("3_feb5d")
-
 [node name="TechTreeButton" type="Button" parent="UI" unique_id=2015784784]
 layout_mode = 0
 offset_left = 12.0
