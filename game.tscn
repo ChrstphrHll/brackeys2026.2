@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://oj1jk4pb0e8u" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dnk21g31ndx2p" path="res://machines/machine.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://c2sgfp8aerlgk" path="res://map_world.gd" id="2_ryrav"]
+[ext_resource type="Texture2D" uid="uid://cqcr24ampxom5" path="res://assets/Brackeys_Map.png" id="3_eow3j"]
 [ext_resource type="Script" uid="uid://cq07e5l4s8y8b" path="res://resource_display.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bo17u31186itu" path="res://ui/tech_tree_menu.tscn" id="4_fc0e3"]
 
@@ -9,34 +11,49 @@
 script = ExtResource("1_80nbo")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1515006803]
-offset_left = -28.0
-offset_top = -39.0
-offset_right = 1238.0
-offset_bottom = 720.0
-color = Color(0.69803923, 0.69803923, 0.627451, 1)
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 1278.0
+offset_bottom = 721.0
+mouse_filter = 2
+
+[node name="MapWorld" type="Node2D" parent="." unique_id=899177164]
+position = Vector2(640, 360)
+scale = Vector2(0.45, 0.45)
+script = ExtResource("2_ryrav")
+
+[node name="BrackeysMap" type="Sprite2D" parent="MapWorld" unique_id=1492002433]
+position = Vector2(488.88892, -302.22223)
+texture = ExtResource("3_eow3j")
 
 [node name="UI" type="Control" parent="." unique_id=47031167]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="UI" unique_id=1009556227]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 6.0
-offset_right = 805.0
-offset_bottom = 86.0
-color = Color(0.7273021, 0.62820613, 0.9454588, 1)
+offset_left = 25.0
+offset_top = 2.0
+offset_right = 526.0
+offset_bottom = 111.0
+mouse_filter = 2
+color = Color(0.14703667, 0.06607689, 0.26568013, 1)
 
 [node name="ResourceDisplay" type="HBoxContainer" parent="UI" unique_id=1186182925]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 7.0
-offset_right = 1017.0
-offset_bottom = 66.0
+offset_left = 34.0
+offset_top = 9.0
+offset_right = 831.0
+offset_bottom = 68.0
 script = ExtResource("3_feb5d")
 
 [node name="Machines" type="VBoxContainer" parent="UI" unique_id=1846919649]
@@ -54,10 +71,10 @@ layout_mode = 2
 
 [node name="TechTreeButton" type="Button" parent="UI" unique_id=2015784784]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 611.0
-offset_right = 95.0
-offset_bottom = 642.0
+offset_left = 20.0
+offset_top = 671.0
+offset_right = 103.0
+offset_bottom = 702.0
 text = "Tech Tree"
 
 [node name="TechTreeMenu" parent="UI" unique_id=821310349 instance=ExtResource("4_fc0e3")]
