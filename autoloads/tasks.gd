@@ -5,7 +5,7 @@ var task_list = Resources.get_gatherable_resources().map(gather_task_factory) + 
 	{
 		"title": "Scavenge",
 		"start": start_scavenge_task,
-		"end": end_scavenge_task,
+		"end": end_scavenge_task
 	}
 ]
 
