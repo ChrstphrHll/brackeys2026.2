@@ -5,11 +5,6 @@ extends Node
 var machine_scene = preload("res://machines/machine.tscn")
 
 
-@onready var machines = [
-	$UI/Machines/Machine
-]
-
-
 # TECH TREE
 # -------------------------
 
@@ -235,8 +230,3 @@ func _on_machine_added(machine: Machine) -> void:
 
 func _on_crafting_button_pressed():
 	$UI/CraftingMenu.show()
-
-
-func add_new_machine() -> void:
-	var test_machine = Machine.new()
-	machines.push_back(test_machine)
