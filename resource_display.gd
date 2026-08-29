@@ -22,7 +22,7 @@ func create_resource_entry(resource_name: String):
 	# Optional icon
 	var icon = TextureRect.new()
 
-	icon.custom_minimum_size = Vector2(48, 48)
+	icon.custom_minimum_size = Vector2(56, 56)
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
@@ -35,10 +35,12 @@ func create_resource_entry(resource_name: String):
 	# Resource name
 	var name_label = Label.new()
 	name_label.text = resource_name.capitalize()
+	name_label.add_theme_font_size_override("font_size", 11)
 	column.add_child(name_label)
 
 	# Resource amount
 	var amount_label = Label.new()
+	amount_label.add_theme_font_size_override("font_size", 13)
 	column.add_child(amount_label)
 
 	# Remember all the UI objects associated with this resource
