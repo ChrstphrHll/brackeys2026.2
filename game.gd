@@ -1,7 +1,8 @@
 extends Node
 
 
-const machine_scene = preload("res://machines/machine.tscn")
+@onready var machines = [$UI/Machines/Machine]
+var machine_scene = preload("res://machines/machine.tscn")
 
 
 @onready var machines = [
@@ -50,6 +51,13 @@ func _ready() -> void:
 	tech_tree_button.pressed.connect(
 		tech_tree_menu.open_menu
 	)
+	Events.machine_added.connect(_on_machine_added)
+	add_new_machine()
+
+func add_new_machine():
+	var instantiated_machine = machine_scene.instantiate()
+	instantiated_machine.machine_name = "You"
+	Events.add_machine(instantiated_machine)
 
 
 	Events.machine_added.connect(
@@ -223,6 +231,10 @@ func _on_main_menu_pressed() -> void:
 
 func _on_machine_added(machine: Machine) -> void:
 	$UI/Machines.add_child(machine)
+
+
+func _on_crafting_button_pressed():
+	$UI/CraftingMenu.show()
 
 
 func add_new_machine() -> void:

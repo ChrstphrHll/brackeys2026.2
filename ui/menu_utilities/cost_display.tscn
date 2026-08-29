@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://co5prrrcxe5pq"]
+
+[ext_resource type="Texture2D" uid="uid://b58r61ks3ekh5" path="res://icon.svg" id="1_k7fp5"]
+[ext_resource type="Script" uid="uid://cxjdewv4nffdc" path="res://ui/menu_utilities/cost_display.gd" id="1_tpsey"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=520809558]
+size_flags_horizontal = 8
+script = ExtResource("1_tpsey")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=475028227]
+layout_mode = 2
+texture = ExtResource("1_k7fp5")
+expand_mode = 3
+
+[node name="Cost" type="Label" parent="." unique_id=41183329]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "10"
