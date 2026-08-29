@@ -4,6 +4,10 @@ extends Node
 @onready var machines = [$UI/Machines/Machine]
 var machine_scene = preload("res://machines/machine.tscn")
 
+# CUTSCENE TRIGGERS
+
+
+
 
 # TECH TREE
 # -------------------------
