@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cqnq8apeytnke"]
+[gd_scene format=3 uid="uid://dmnrocea25r80"]
 
-[ext_resource type="Script" path="res://ui/crafting_recipe.gd" id="1_0l2m5"]
+[ext_resource type="Script" uid="uid://cdsm27jtbrnin" path="res://ui/crafting_recipe.gd" id="1_0l2m5"]
 [ext_resource type="Texture2D" uid="uid://b58r61ks3ekh5" path="res://icon.svg" id="2_rlpvi"]
 
 [node name="CraftingRecipe" type="Button" unique_id=2138880391]
