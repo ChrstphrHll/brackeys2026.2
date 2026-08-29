@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://rl5fjnwjo0b2"]
 
 [ext_resource type="Script" uid="uid://oj1jk4pb0e8u" path="res://game.gd" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://dnk21g31ndx2p" path="res://machines/machine.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://cq07e5l4s8y8b" path="res://resource_display.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bo17u31186itu" path="res://ui/tech_tree_menu.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://c3wpjll2xf65r" path="res://ui/crafting_menu.tscn" id="5_7jktm"]
@@ -49,9 +48,6 @@ anchor_bottom = 1.0
 offset_left = -76.0
 grow_horizontal = 0
 grow_vertical = 2
-
-[node name="Machine" parent="UI/Machines" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
-layout_mode = 2
 
 [node name="TechTreeButton" type="Button" parent="UI" unique_id=2015784784]
 layout_mode = 0

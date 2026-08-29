@@ -17,6 +17,8 @@ repeat = 1
 offset_right = 277.0
 offset_bottom = 47.0
 script = ExtResource("1_2sueh")
+machine_name = null
+machine_icon = null
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1217634481]
 layout_mode = 2

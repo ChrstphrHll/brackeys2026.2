@@ -55,6 +55,16 @@ func get_resource_names():
 	return _resources.keys()
 
 
+func get_gatherable_resources() -> Array[String]:
+	var gatherable: Array[String] = []
+	
+	for resource in _resources:
+		var info = _resources[resource]
+		if info.has("gatherable") and info.gatherable > 0:
+			gatherable.append(resource)
+	return gatherable
+
+
 func get_resource_icon(resource: String):
 	if not _resources.has(resource):
 		return null

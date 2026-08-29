@@ -1,7 +1,8 @@
-extends Panel
+extends Button
 
 @export var resource: String
 
+@onready var crafting_recipe = $"."
 @onready var resource_image = $MarginContainer/HBoxContainer/ResourceVBox/ResourceImage
 @onready var resource_name = $MarginContainer/HBoxContainer/ResourceVBox/ResourceName
 @onready var costs = $MarginContainer/HBoxContainer/Costs
@@ -10,10 +11,13 @@ var cost_helper = preload("res://ui/menu_utilities/cost_display.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Events.recipe_selected.connect(_on_recipe_selected)
+	
 	resource_image.texture = Resources.get_resource_icon(resource)
 	resource_name.text = resource
 	
 	var resource_costs = Resources.get_resource_crafting_cost(resource)
+	assert(resource_costs != null, "Only craftable resources")
 	
 	for resource in resource_costs:
 		var cost = resource_costs[resource]
@@ -28,3 +32,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_toggled(toggled_on):
+	if toggled_on:
+		Events.select_recipe(resource)
+	else:
+		Events.select_recipe(null)
+
+
+func _on_recipe_selected(resourceOrNull):
+	if resourceOrNull != resource:
+		crafting_recipe.button_pressed = false

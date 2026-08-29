@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cdsm27jtbrnin" path="res://ui/crafting_recipe.gd" id="1_0l2m5"]
 [ext_resource type="Texture2D" uid="uid://b58r61ks3ekh5" path="res://icon.svg" id="2_rlpvi"]
 
-[node name="CraftingRecipe" type="Panel" unique_id=1804717723]
+[node name="CraftingRecipe" type="Button" unique_id=2138880391]
 custom_minimum_size = Vector2(120, 80)
 custom_maximum_size = Vector2(120, 80)
 propagate_maximum_size = true
@@ -11,15 +11,17 @@ clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -36.0
-offset_right = 56.0
-offset_bottom = 36.0
+offset_left = 516.0
+offset_top = 284.0
+offset_right = -516.0
+offset_bottom = -284.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+toggle_mode = true
 script = ExtResource("1_0l2m5")
+resource = "battery"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1811021221]
 layout_mode = 1
@@ -55,3 +57,5 @@ text = "Resource"
 [node name="Costs" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=95447836]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]
