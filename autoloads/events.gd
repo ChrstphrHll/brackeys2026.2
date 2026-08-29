@@ -9,19 +9,19 @@ signal machine_lost
 signal recipe_unlocked
 signal recipe_selected
 
-func add_machine(machine: Machines.MachineInfo):
+func add_machine(machine: Machine):
 	machine_added.emit(machine)
 
 
-func lose_machine(machine: Machines.MachineInfo):
+func lose_machine(machine: Machine):
 	machine_lost.emit(machine)
 
 
-func start_machine_task(machine: Machines.MachineInfo):
+func start_machine_task(machine: Machine):
 	machine_task_started.emit(machine)
 
 
-func end_machine_task(machine: Machines.MachineInfo):
+func end_machine_task(machine: Machine):
 	machine_task_ended.emit(machine)
 
 

@@ -29,10 +29,6 @@ func _ready():
 		costs.add_child(instantiated_cost_helper)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func _on_toggled(toggled_on):
 	if toggled_on:

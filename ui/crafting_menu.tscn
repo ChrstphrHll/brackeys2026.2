@@ -109,14 +109,9 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Select who to craft it"
 
-[node name="MachineScrollContainer" type="ScrollContainer" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/MachineVBox" unique_id=509114467]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/MachineVBox/MachineScrollContainer" unique_id=1550916070]
+[node name="MachineOptions" type="OptionButton" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/MachineVBox" unique_id=1195497434]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="CraftButton" type="Button" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/MachineVBox" unique_id=124369796]
 layout_mode = 2
@@ -124,3 +119,5 @@ disabled = true
 text = "Craft"
 
 [connection signal="pressed" from="OuterMargin/Panel/InnerMargin/VBox/Header/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="item_selected" from="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/MachineVBox/MachineOptions" to="." method="_on_machine_options_item_selected"]
+[connection signal="pressed" from="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/MachineVBox/CraftButton" to="." method="_on_craft_button_pressed"]

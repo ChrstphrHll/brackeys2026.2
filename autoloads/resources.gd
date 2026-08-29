@@ -5,22 +5,24 @@ signal resource_changed(resource_name: String, new_amount: int)
 
 var _resources = {
 	"wood": {
-		"amount": 0,
+		"amount": 1000,
 		"gatherable": 1,
 		"difficulty": 1,
 		"abundance": 1,
 		"icon": preload("res://assets/WoodResource.png")
 	},
 	"scrap": {
-		"amount": 0,
+		"amount": 111110,
 		"gatherable": 1,
-		"difficulty": 2,
+		"difficulty": 20,
 		"abundance": 0.2,
 		"icon": preload("res://assets/scrap.png")
 	},
 	"battery": {
 		"amount": 0,
 		"gatherable": -1,
+		"difficulty": 20,
+		"abundance": 0.2,
 		"crafting_cost": {
 			"wood": 10,
 			"scrap": 10
