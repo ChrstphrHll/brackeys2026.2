@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c3wpjll2xf65r"]
 
 [ext_resource type="Script" uid="uid://df2m6nrrtan2l" path="res://ui/crafting_menu.gd" id="1_srlpo"]
-[ext_resource type="PackedScene" uid="uid://dmnrocea25r80" path="res://ui/crafting_recipe.tscn" id="2_cywfm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0vqy"]
 bg_color = Color(0.59110165, 0.65525436, 0.5392973, 1)
@@ -94,12 +93,6 @@ horizontal_scroll_mode = 0
 [node name="GridContainer" type="GridContainer" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/ResourceVBox/ResourceScrollBox" unique_id=439570529]
 layout_mode = 2
 columns = 4
-
-[node name="CraftingRecipe" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/ResourceVBox/ResourceScrollBox/GridContainer" unique_id=1804717723 instance=ExtResource("2_cywfm")]
-layout_mode = 2
-
-[node name="CraftingRecipe2" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/ResourceVBox/ResourceScrollBox/GridContainer" unique_id=520181351 instance=ExtResource("2_cywfm")]
-layout_mode = 2
 
 [node name="MachineVBox" type="VBoxContainer" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer" unique_id=11785157]
 layout_mode = 2

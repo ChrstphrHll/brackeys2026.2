@@ -8,9 +8,11 @@ size_flags_horizontal = 8
 script = ExtResource("1_tpsey")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=475028227]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("1_k7fp5")
-expand_mode = 3
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Cost" type="Label" parent="." unique_id=41183329]
 layout_mode = 2

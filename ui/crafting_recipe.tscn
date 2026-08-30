@@ -42,11 +42,12 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ResourceImage" type="TextureRect" parent="MarginContainer/HBoxContainer/ResourceVBox" unique_id=310371174]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 texture = ExtResource("2_rlpvi")
-expand_mode = 3
+expand_mode = 1
 stretch_mode = 5
 
 [node name="ResourceName" type="Label" parent="MarginContainer/HBoxContainer/ResourceVBox" unique_id=821785203]
