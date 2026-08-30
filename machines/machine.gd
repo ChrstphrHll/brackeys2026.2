@@ -3,39 +3,78 @@ extends Control
 class_name Machine
 
 
-@export var machine_name: String = "test"
-var machine_icon: Resource
-var current_task: String
+static var next_machine_id: int = 1
 
-var id: int = ResourceUID.create_id_for_path("machine_ids")
 
-var speed = 1
-var efficiency = 10
+@export var machine_name: String = "Machine"
+@export var machine_icon: Texture2D = preload("res://assets/Bulldozer.png")
+
+@export var is_player: bool = false
+
+@export var base_speed: float = 1.0
+@export var base_efficiency: float = 1.0
+
+
+var id: int
+var current_task: String = ""
+
+var task_menu_entries: Array[Dictionary] = []
+
+var completion_callback: Callable
+
 
 @onready var task_timer: Timer = $TaskTimer
-@onready var task_selector = $MarginContainer/VBoxContainer/HBoxContainer/MenuButton
-@onready var progress_bar = $MarginContainer/VBoxContainer/ProgressBar
 
-# Called when the node enters the scene tree for the first time.
+@onready var task_selector: MenuButton = \
+	$MarginContainer/VBoxContainer/HBoxContainer/MenuButton
+
+@onready var progress_bar: ProgressBar = \
+	$MarginContainer/VBoxContainer/ProgressBar
+
+
+func _init():
+	id = next_machine_id
+	next_machine_id += 1
+
+
 func _ready():
-	task_selector.get_popup().id_pressed.connect(_task_menu_trigger)
-	Tasks.task_list.map(_add_task_option)
+	var popup := task_selector.get_popup()
+
+	popup.id_pressed.connect(_task_menu_trigger)
+	popup.about_to_popup.connect(_refresh_task_menu)
+
 	build()
-	
-	ResourceUID.add_id(id, "machine_ids")
+
+	progress_bar.hide()
+
+	task_selector.text = "Task"
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	$MarginContainer/VBoxContainer/ProgressBar.value = task_timer.time_left
+func _process(_delta):
+	if not task_timer.is_stopped():
+		progress_bar.value = \
+			progress_bar.max_value - task_timer.time_left
 
 
-func _task_menu_trigger(id: int):
-	Tasks.task_list[id].start.call(self)
+func _refresh_task_menu():
+	var popup := task_selector.get_popup()
+
+	popup.clear()
+
+	task_menu_entries = Tasks.get_tasks_for_machine(self)
+
+	for i in range(task_menu_entries.size()):
+		popup.add_item(
+			task_menu_entries[i]["title"],
+			i
+		)
 
 
-func _add_task_option(task):
-	task_selector.get_popup().add_item(task.title)
+func _task_menu_trigger(task_id: int):
+	if task_id < 0 or task_id >= task_menu_entries.size():
+		return
+
+	task_menu_entries[task_id]["start"].call(self)
 
 
 func build():
@@ -49,31 +88,70 @@ func set_machine_name():
 
 
 func set_icon():
-	$MarginContainer/VBoxContainer/HBoxContainer/MachineIcon.texture = \
-		machine_icon
+	if machine_icon != null:
+		$MarginContainer/VBoxContainer/HBoxContainer/MachineIcon.texture = \
+			machine_icon
 
 
-func set_progress_bar_maximum(time_cost):
-	if time_cost == -1:
-		progress_bar.hide()
-	else:
-		progress_bar.max_value = time_cost
+func get_effective_speed() -> float:
+	if is_player:
+		return base_speed
+
+	return base_speed * TechTree.machine_speed_multiplier
 
 
-func implement_consequence(task_name):
-	pass
+func get_effective_efficiency() -> float:
+	if is_player:
+		return base_efficiency
+
+	return base_efficiency * TechTree.machine_yield_multiplier
 
 
-func start_task(task_name: String, time_cost: int, bound_callback: Callable):
-	Events.start_machine_task(self)
+func is_busy() -> bool:
+	return not task_timer.is_stopped()
+
+
+func start_task(
+	task_name: String,
+	time_cost: float,
+	on_complete: Callable
+) -> bool:
+
+	if is_busy():
+		return false
+
 	current_task = task_name
-	task_timer.timeout.connect(bound_callback)
-	$MarginContainer/VBoxContainer/ProgressBar.max_value = time_cost
+	completion_callback = on_complete
+
+	task_selector.disabled = true
+	task_selector.text = task_name
+
+	progress_bar.show()
+	progress_bar.max_value = time_cost
+	progress_bar.value = 0
+
+	Events.start_machine_task(self)
+
 	task_timer.start(time_cost)
 
+	return true
 
-func end_task(bound_callback):
-	Events.end_machine_task(self)
-	implement_consequence(current_task)
-	task_timer.timeout.disconnect(bound_callback)
+
+func _on_task_timer_timeout():
+	var callback := completion_callback
+
+	completion_callback = Callable()
+
+	if callback.is_valid():
+		callback.call()
+
+
+func finish_task():
 	current_task = ""
+
+	task_selector.disabled = false
+	task_selector.text = "Task"
+
+	progress_bar.hide()
+
+	Events.end_machine_task(self)

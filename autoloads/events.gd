@@ -11,6 +11,7 @@ signal recipe_selected
 
 signal final_cutscene_ended
 
+signal scavenge_completed(message: String)
 
 func add_machine(machine: Machine):
 	machine_added.emit(machine)
@@ -38,3 +39,6 @@ func select_recipe(resourceOrNull):
 
 func end_game():
 	final_cutscene_ended.emit()
+  
+func report_scavenge(message: String):
+	scavenge_completed.emit(message)

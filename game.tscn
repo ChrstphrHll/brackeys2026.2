@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://rl5fjnwjo0b2"]
 
 [ext_resource type="Script" uid="uid://oj1jk4pb0e8u" path="res://game.gd" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://dnk21g31ndx2p" path="res://machines/machine.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://c2sgfp8aerlgk" path="res://map_world.gd" id="2_ryrav"]
 [ext_resource type="Texture2D" uid="uid://cqcr24ampxom5" path="res://assets/Brackeys_Map.png" id="3_eow3j"]
 [ext_resource type="Script" uid="uid://cq07e5l4s8y8b" path="res://resource_display.gd" id="3_feb5d"]
@@ -109,9 +108,6 @@ offset_left = -76.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Machine" parent="UI/Machines" unique_id=1930575906 instance=ExtResource("2_e2o6t")]
-layout_mode = 2
-
 [node name="TechTreeButton" type="Button" parent="UI" unique_id=2015784784]
 layout_mode = 0
 offset_left = 20.0
@@ -123,9 +119,9 @@ text = "Tech Tree"
 [node name="CraftingButton" type="Button" parent="UI" unique_id=468383654]
 layout_mode = 0
 offset_left = 109.0
-offset_top = 672.0
+offset_top = 671.0
 offset_right = 192.0
-offset_bottom = 703.0
+offset_bottom = 702.0
 text = "Craft"
 
 [node name="TechTreeMenu" parent="UI" unique_id=821310349 instance=ExtResource("4_fc0e3")]
@@ -137,6 +133,13 @@ layout_mode = 1
 [node name="CraftingMenu" parent="UI" unique_id=739515634 instance=ExtResource("7_eow3j")]
 visible = false
 layout_mode = 1
+
+[node name="ScavengeResult" type="Label" parent="UI" unique_id=805612542]
+layout_mode = 0
+offset_left = 649.0
+offset_top = 562.0
+offset_right = 732.0
+offset_bottom = 585.0
 
 [node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
 layout_mode = 3
@@ -177,6 +180,10 @@ text = "return to menu!"
 [node name="NoOneCutscene" type="Timer" parent="." unique_id=1806355874]
 wait_time = 60.0
 autostart = true
+
+[node name="ScavengeMessageTimer" type="Timer" parent="." unique_id=1371247895]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="pressed" from="UI/CraftingButton" to="." method="_on_crafting_button_pressed"]
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

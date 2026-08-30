@@ -3,31 +3,102 @@ extends Node
 signal resource_changed(resource_name: String, new_amount: int)
 
 
-var _resources = {
+var _resources: Dictionary = {
 	"wood": {
-		"amount": 1000,
-		"gatherable": 1,
-		"difficulty": 1,
-		"abundance": 1,
+		"display_name": "Wood",
+		"amount": 0,
+		"gatherable": true,
+		"unlock_zone": 0,
+		"difficulty": 4.0,
+		"base_yield": 1,
 		"icon": preload("res://assets/WoodResource.png")
 	},
+
+	"rocks": {
+		"display_name": "Rocks",
+		"amount": 0,
+		"gatherable": true,
+		"unlock_zone": 0,
+		"difficulty": 5.0,
+		"base_yield": 1,
+		"icon": preload("res://assets/Rocks.png")
+	},
+
 	"scrap": {
-		"amount": 111110,
-		"gatherable": 1,
-		"difficulty": 20,
-		"abundance": 0.2,
+		"display_name": "Scrap",
+		"amount": 0,
+		"gatherable": true,
+		"unlock_zone": 0,
+		"difficulty": 8.0,
+		"base_yield": 1,
 		"icon": preload("res://assets/scrap.png")
 	},
-	"battery": {
+
+	"nuts_and_bolts": {
+		"display_name": "Nuts & Bolts",
 		"amount": 0,
-		"gatherable": -1,
-		"difficulty": 20,
-		"abundance": 0.2,
+		"gatherable": false,
+		"unlock_zone": 0,
+		"difficulty": 1.0,
+		"base_yield": 1,
+		"icon": preload("res://assets/Nutsandbolts.png")
+	},
+
+	"steel": {
+		"display_name": "Steel",
+		"amount": 0,
+		"gatherable": false,
+		"unlock_zone": 0,
+		"difficulty": 12.0,
 		"crafting_cost": {
-			"wood": 10,
-			"scrap": 10
+			"scrap": 5,
+			"rocks": 4
 		},
-		"icon": preload("res://assets/scrap.png")
+		"icon": preload("res://assets/Rubber.png")
+	},
+
+	"battery": {
+		"display_name": "Battery",
+		"amount": 0,
+		"gatherable": false,
+		"unlock_zone": 0,
+		"difficulty": 16.0,
+		"crafting_cost": {
+			"steel": 2,
+			"nuts_and_bolts": 2,
+			"scrap": 2
+		},
+		"icon": preload("res://assets/Battery.png")
+	},
+
+	"crystallized_gunpowder": {
+		"display_name": "Crystallized Gunpowder",
+		"amount": 0,
+		"gatherable": true,
+		"unlock_zone": 1,
+		"difficulty": 10.0,
+		"base_yield": 1,
+		"icon": preload("res://assets/CrystalizedGunpowder.png")
+	},
+
+	"ether": {
+		"display_name": "Ether",
+		"amount": 0,
+		"gatherable": true,
+		"unlock_zone": 2,
+		"difficulty": 14.0,
+		"base_yield": 1,
+		"icon": preload("res://assets/Ether.png")
+	},
+
+	"computer_cubes": {
+		"display_name": "Computer Cubes",
+		"amount": 0,
+		"gatherable": true,
+		"unlock_zone": 2,
+		"difficulty": 18.0,
+		"base_yield": 1,
+		"icon": preload("res://assets/ComputerCube.png")
 	}
 }
 
@@ -47,7 +118,6 @@ func modify_resource(resource: String, delta: int):
 
 func get_resource_amount(resource: String) -> int:
 	if not _resources.has(resource):
-		push_warning("Tried to get unknown resource: " + resource)
 		return 0
 
 	return _resources[resource]["amount"]
@@ -57,14 +127,56 @@ func get_resource_names():
 	return _resources.keys()
 
 
+func get_resource_display_name(resource: String) -> String:
+	if not _resources.has(resource):
+		return resource.capitalize()
+
+	return _resources[resource].get(
+		"display_name",
+		resource.capitalize()
+	)
+
+
 func get_gatherable_resources() -> Array[String]:
 	var gatherable: Array[String] = []
-	
-	for resource in _resources:
-		var info = _resources[resource]
-		if info.has("gatherable") and info.gatherable > 0:
-			gatherable.append(resource)
+
+	for resource_name in _resources:
+		var info: Dictionary = _resources[resource_name]
+
+		if (
+			info.get("gatherable", false)
+			and info.get("unlock_zone", 0) <= Zones.current_zone
+		):
+			gatherable.append(resource_name)
+
 	return gatherable
+
+
+func get_visible_resource_names() -> Array[String]:
+	var visible_resources: Array[String] = []
+
+	for resource_name in _resources:
+		var info: Dictionary = _resources[resource_name]
+
+		if info.get("unlock_zone", 0) <= Zones.current_zone:
+			visible_resources.append(resource_name)
+
+	return visible_resources
+
+
+func get_craftable_resources() -> Array[String]:
+	var craftable: Array[String] = []
+
+	for resource_name in _resources:
+		var info: Dictionary = _resources[resource_name]
+
+		if (
+			info.has("crafting_cost")
+			and info.get("unlock_zone", 0) <= Zones.current_zone
+		):
+			craftable.append(resource_name)
+
+	return craftable
 
 
 func get_resource_icon(resource: String):
@@ -77,35 +189,40 @@ func get_resource_icon(resource: String):
 func get_resource_crafting_cost(resource: String):
 	if not _resources.has(resource):
 		return null
-	
-	var resource_info = _resources[resource]
-	
-	if not resource_info.has("crafting_cost"):
-		return null
-		
-	return resource_info.crafting_cost
+
+	return _resources[resource].get("crafting_cost", null)
 
 
-func get_resource_abundance(resource: String):
-	return _resources[resource]["abundance"]
+func get_resource_difficulty(resource: String) -> float:
+	if not _resources.has(resource):
+		return 1.0
+
+	return float(_resources[resource].get("difficulty", 1.0))
 
 
-func get_resource_difficulty(resource: String):
-	return _resources[resource]["difficulty"]
+func get_resource_base_yield(resource: String) -> int:
+	if not _resources.has(resource):
+		return 1
+
+	return int(_resources[resource].get("base_yield", 1))
 
 
 func can_afford(costs: Dictionary) -> bool:
 	for resource_name in costs:
-		var cost: int = costs[resource_name]
-		if get_resource_amount(resource_name) < cost:
+		if get_resource_amount(resource_name) < int(costs[resource_name]):
 			return false
+
 	return true
 
 
 func spend_resources(costs: Dictionary) -> bool:
 	if not can_afford(costs):
 		return false
+
 	for resource_name in costs:
-		var cost: int = costs[resource_name]
-		modify_resource(resource_name, -cost)
+		modify_resource(
+			resource_name,
+			-int(costs[resource_name])
+		)
+
 	return true
