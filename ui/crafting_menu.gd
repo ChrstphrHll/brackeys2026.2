@@ -43,6 +43,13 @@ func _on_close_button_pressed():
 	hide()
 
 
+func _update_craft_button_state() -> void:
+	craft_button.disabled = (
+		selected_recipe == null
+		or machine_options.item_count == 0
+	)
+
+
 func _new_crafting_recipe(resource):
 	if known_recipes.has(resource):
 		return
@@ -59,12 +66,9 @@ func _new_crafting_recipe(resource):
 	)
 
 
-func _set_selected_recipe(resourceOrNull):
-	selected_recipe = resourceOrNull
-	if not selected_recipe:
-		craft_button.disabled = true
-	else:
-		craft_button.disabled = false
+func _set_selected_recipe(resource_or_null):
+	selected_recipe = resource_or_null
+	_update_craft_button_state()
 
 
 func _add_available_machine(machine: Machine):
@@ -76,42 +80,74 @@ func _add_available_machine(machine: Machine):
 		machine.id
 	)
 
-	var item_index: int = int(
-		machine_options.get_item_index(machine.id)
-	)
-
-	machine_options.set_item_metadata(
-		item_index,
-		machine.id
-	)
-
 	currently_available_machines[machine.id] = machine
+
+	if machine_options.item_count == 1:
+		machine_options.select(0)
+
+	_update_craft_button_state()
 
 
 func _lose_available_machine(machine: Machine):
 	if not currently_available_machines.has(machine.id):
 		return
 
-	var item_index: int = int(
-		machine_options.get_item_index(machine.id)
-	)
+	var item_index: int = machine_options.get_item_index(machine.id)
 
 	if item_index >= 0:
 		machine_options.remove_item(item_index)
 
 	currently_available_machines.erase(machine.id)
 
+	if machine_options.item_count > 0:
+		machine_options.select(0)
+
+	_update_craft_button_state()
+
 
 func _on_craft_button_pressed():
-	var selected_machine_id = machine_options.get_selected_metadata()
-	var costs = Resources.get_resource_crafting_cost(selected_recipe)
-	var canAfford = Resources.can_afford(costs)
-	
-	if not canAfford:
-		print("cant afford ", selected_recipe)
+	if selected_recipe == null:
 		return
-	
-	Tasks.start_craft_task(selected_recipe, currently_available_machines[selected_machine_id])
+
+	if machine_options.item_count == 0:
+		push_warning("Tried to craft with no available machine.")
+		_update_craft_button_state()
+		return
+
+	var selected_machine_id: int = machine_options.get_selected_id()
+
+	if not currently_available_machines.has(selected_machine_id):
+		push_error(
+            "Selected crafting machine does not exist: %s"
+			% selected_machine_id
+		)
+		_update_craft_button_state()
+		return
+
+	var costs_value = \
+		Resources.get_resource_crafting_cost(selected_recipe)
+
+	if costs_value == null:
+		push_error(
+            "No crafting cost for resource: %s"
+			% selected_recipe
+		)
+		return
+
+	var costs: Dictionary = costs_value
+
+	if not Resources.can_afford(costs):
+		print("Can't afford ", selected_recipe)
+		return
+
+	var selected_machine: Machine = \
+		currently_available_machines[selected_machine_id]
+
+	Tasks.start_craft_task(
+		selected_recipe,
+		selected_machine
+	)
+
 	hide()
 
 

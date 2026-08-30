@@ -117,34 +117,6 @@ func _add_player():
 	Events.add_machine(player)
 
 
-	Events.machine_added.connect(
-		_on_machine_added
-	)
-
-
-	# Connect each map transition button.
-	for i in range(zone_buttons.size()):
-		zone_buttons[i].pressed.connect(
-			_on_zone_button_pressed.bind(i)
-		)
-
-
-	# Called when the player presses Advance
-	# in the confirmation dialog.
-	zone_confirm_dialog.confirmed.connect(
-		_on_zone_confirmed
-	)
-
-
-	# Update the buttons whenever progression changes.
-	Zones.zone_changed.connect(
-		_refresh_zone_buttons
-	)
-
-
-	_refresh_zone_buttons()
-
-
 func _process(_delta: float) -> void:
 	_update_zone_button_positions()
 
