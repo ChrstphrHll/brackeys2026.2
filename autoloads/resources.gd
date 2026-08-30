@@ -6,7 +6,7 @@ signal resource_changed(resource_name: String, new_amount: int)
 var _resources: Dictionary = {
 	"wood": {
 		"display_name": "Wood",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 0,
 		"difficulty": 4.0,
@@ -16,7 +16,7 @@ var _resources: Dictionary = {
 
 	"rocks": {
 		"display_name": "Rocks",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 0,
 		"difficulty": 5.0,
@@ -26,7 +26,7 @@ var _resources: Dictionary = {
 
 	"scrap": {
 		"display_name": "Scrap",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 0,
 		"difficulty": 8.0,
@@ -36,7 +36,7 @@ var _resources: Dictionary = {
 
 	"nuts_and_bolts": {
 		"display_name": "Nuts & Bolts",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 0,
 		"gather_zone": 2,
@@ -47,7 +47,7 @@ var _resources: Dictionary = {
 
 	"steel": {
 		"display_name": "Steel",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": false,
 		"unlock_zone": 0,
 		"difficulty": 12.0,
@@ -60,7 +60,7 @@ var _resources: Dictionary = {
 
 	"battery": {
 		"display_name": "Battery",
-		"amount": 99999990,
+		"amount": 0,
 		"gatherable": false,
 		"unlock_zone": 0,
 		"difficulty": 16.0,
@@ -74,7 +74,7 @@ var _resources: Dictionary = {
 
 	"crystallized_gunpowder": {
 		"display_name": "Crystallized Gunpowder",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 1,
 		"difficulty": 10.0,
@@ -84,7 +84,7 @@ var _resources: Dictionary = {
 
 	"ether": {
 		"display_name": "Ether",
-		"amount": 99999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 2,
 		"difficulty": 14.0,
@@ -94,7 +94,7 @@ var _resources: Dictionary = {
 
 	"computer_cubes": {
 		"display_name": "Computer Cubes",
-		"amount": 9999990,
+		"amount": 0,
 		"gatherable": true,
 		"unlock_zone": 2,
 		"difficulty": 18.0,
