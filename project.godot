@@ -13,7 +13,8 @@ config_version=5
 config/name="Trust No. 1"
 run/main_scene="uid://0ay687agw33u"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-boot_splash/image="uid://dr5kysnbi245j"
+boot_splash/stretch_mode=2
+boot_splash/image="uid://jw121l5c8rs4"
 config/icon="uid://jw121l5c8rs4"
 
 [autoload]
@@ -30,7 +31,6 @@ Events="*uid://1a5ammiygx87"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [input]
 
