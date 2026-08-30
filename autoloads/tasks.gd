@@ -89,6 +89,16 @@ func end_gather_task(
 		resource_gain
 	)
 
+	Events.log_activity(
+		"%s — Gathered %d %s" % [
+			machine.machine_name,
+			resource_gain,
+			Resources.get_resource_display_name(resource)
+		]
+	)
+
+	machine.finish_task()
+
 	machine.finish_task()
 
 	# Recovered machines eventually become autonomous.
@@ -142,6 +152,13 @@ func end_scavenge_task(machine: Machine) -> void:
 
 			Events.add_machine(new_machine)
 
+			Events.log_activity(
+				"%s — Recovered %s" % [
+					machine.machine_name,
+					new_machine.machine_name
+				]
+			)
+
 		"resource":
 			var resource_name: String = str(
 				result["resource"]
@@ -156,8 +173,21 @@ func end_scavenge_task(machine: Machine) -> void:
 				amount
 			)
 
+			Events.log_activity(
+				"%s — Scavenged %d %s" % [
+					machine.machine_name,
+					amount,
+					Resources.get_resource_display_name(
+						resource_name
+					)
+				]
+			)
+
 		"nothing":
-			pass
+			Events.log_activity(
+				"%s — Scavenged nothing" % \
+					machine.machine_name
+			)
 
 	Events.report_scavenge(
 		str(result["message"])
@@ -223,6 +253,13 @@ func end_craft_task(
 	Resources.modify_resource(
 		resource,
 		1
+	)
+
+	Events.log_activity(
+		"%s — Crafted 1 %s" % [
+			machine.machine_name,
+			Resources.get_resource_display_name(resource)
+		]
 	)
 
 	machine.finish_task()
