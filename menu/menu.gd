@@ -1,7 +1,4 @@
-extends CenterContainer
-
-@onready var play_button = $PlayButton
-
+extends Control
 
 
 func _on_play_button_pressed():

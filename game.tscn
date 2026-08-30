@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cq07e5l4s8y8b" path="res://resource_display.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bo17u31186itu" path="res://ui/tech_tree_menu.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://c3wpjll2xf65r" path="res://ui/crafting_menu.tscn" id="7_eow3j"]
+[ext_resource type="PackedScene" uid="uid://8ahvfy8n88ym" path="res://ui/cutscene.tscn" id="8_j5wjh"]
 
 [node name="Game" type="Node" unique_id=1275175939]
 script = ExtResource("1_80nbo")
@@ -174,9 +175,16 @@ layout_mode = 2
 layout_mode = 2
 text = "return to menu!"
 
+[node name="Opening" parent="." unique_id=926457140 instance=ExtResource("8_j5wjh")]
+
+[node name="NoOneCutscene" type="Timer" parent="." unique_id=1806355874]
+wait_time = 60.0
+autostart = true
+
 [node name="ScavengeMessageTimer" type="Timer" parent="." unique_id=1371247895]
 wait_time = 2.0
 one_shot = true
 
 [connection signal="pressed" from="UI/CraftingButton" to="." method="_on_crafting_button_pressed"]
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="timeout" from="NoOneCutscene" to="." method="_on_no_one_cutscene_timeout"]
