@@ -2,6 +2,15 @@ extends HBoxContainer
 
 var resource_entries: Dictionary = {}
 
+@onready var resource_background: ColorRect = \
+	$"../ResourceBackground"
+
+const BACKGROUND_PADDING_LEFT: float = 9.0
+const BACKGROUND_PADDING_TOP: float = 7.0
+const BACKGROUND_PADDING_RIGHT: float = 9.0
+const BACKGROUND_PADDING_BOTTOM: float = 7.0
+const MIN_BACKGROUND_SIZE: Vector2 = Vector2(501.0, 109.0)
+
 
 func _ready():
 	Resources.resource_changed.connect(
@@ -13,6 +22,7 @@ func _ready():
 	)
 
 	_add_visible_resources()
+	call_deferred("_resize_resource_background")
 
 
 func create_resource_entry(resource_name: String):
@@ -62,6 +72,8 @@ func create_resource_entry(resource_name: String):
 		Resources.get_resource_amount(resource_name)
 	)
 
+	call_deferred("_resize_resource_background")
+
 
 func _on_resource_changed(resource_name: String, new_amount: int):
 	# allows code to work if a resource is introduced
@@ -89,3 +101,26 @@ func _add_visible_resources():
 		create_resource_entry(
 			resource_name
 		)
+
+
+func _resize_resource_background() -> void:
+	var content_size: Vector2 = get_combined_minimum_size()
+
+	resource_background.position = position - Vector2(
+		BACKGROUND_PADDING_LEFT,
+		BACKGROUND_PADDING_TOP
+	)
+
+	var desired_size: Vector2 = Vector2(
+		content_size.x
+			+ BACKGROUND_PADDING_LEFT
+			+ BACKGROUND_PADDING_RIGHT,
+		content_size.y
+			+ BACKGROUND_PADDING_TOP
+			+ BACKGROUND_PADDING_BOTTOM
+	)
+
+	resource_background.size = Vector2(
+		max(MIN_BACKGROUND_SIZE.x, desired_size.x),
+		max(MIN_BACKGROUND_SIZE.y, desired_size.y)
+	)

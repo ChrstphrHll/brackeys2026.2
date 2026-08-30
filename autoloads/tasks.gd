@@ -36,6 +36,17 @@ func start_gather_task(
 	machine: Machine
 ) -> void:
 
+	# Automated machines may be redirected while their current
+	# gather cycle finishes. The new choice becomes the next target.
+	if machine.is_busy():
+		if (
+			not machine.is_player
+			and TechTree.machine_auto_repeat
+		):
+			machine.queue_gather_resource(resource)
+
+		return
+
 	var difficulty: float = float(
 		Resources.get_resource_difficulty(resource)
 	)
@@ -52,7 +63,9 @@ func start_gather_task(
 		end_gather_task.bind(
 			resource,
 			machine
-		)
+		),
+		not machine.is_player
+			and TechTree.machine_auto_repeat
 	)
 
 
@@ -99,15 +112,17 @@ func end_gather_task(
 
 	machine.finish_task()
 
-	machine.finish_task()
-
-	# Recovered machines eventually become autonomous.
+	# Recovered machines eventually become autonomous. If the player
+	# selected a different resource during this cycle, switch to it now.
 	if (
 		not machine.is_player
 		and TechTree.machine_auto_repeat
 	):
+		var next_resource: String = \
+			machine.take_pending_gather_resource(resource)
+
 		start_gather_task(
-			resource,
+			next_resource,
 			machine
 		)
 

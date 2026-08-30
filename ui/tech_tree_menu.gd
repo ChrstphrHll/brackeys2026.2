@@ -226,23 +226,13 @@ func _build_tooltip(
 ) -> String:
 	var cost_text = _format_cost(node_data["cost"])
 
+	# TechTree owns the lock-state logic, including zone requirements.
+	# Do not replace its message with a generic "previous node" message.
 	var state_text: String = \
-	TechTree.get_node_state_text(
-		path_name,
-		node_index
-	)
-
-	if TechTree.is_unlocked(path_name, node_index):
-		state_text = "Unlocked"
-
-	elif not TechTree.is_available(path_name, node_index):
-		state_text = "Locked - unlock the previous node first"
-
-	elif Resources.can_afford(node_data["cost"]):
-		state_text = "Click to unlock"
-
-	else:
-		state_text = "Not enough resources"
+		TechTree.get_node_state_text(
+			path_name,
+			node_index
+		)
 
 	return "%s\n%s\n\nCost: %s\n%s" % [
 		node_data["name"],
