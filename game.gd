@@ -70,6 +70,7 @@ func _ready() -> void:
 	)
   
 	Events.final_cutscene_ended.connect(_on_main_menu_pressed)
+	Events.get_no_one.connect(_get_no_one)
 	Zones.zone_changed.connect(_play_final_cutscene)
 
 
@@ -115,6 +116,18 @@ func _add_player():
 	player.base_efficiency = 1.0
 
 	Events.add_machine(player)
+
+
+func _get_no_one():
+	var no_one = machine_scene.instantiate()
+	
+	no_one.machine_name = "No. One"
+	no_one.machine_icon = preload("res://assets/cutscene3.5.png")
+	
+	no_one.base_speed = 1.2
+	no_one.base_efficiency = 1
+	
+	Events.add_machine(no_one)
 
 
 func _process(_delta: float) -> void:

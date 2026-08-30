@@ -1,5 +1,6 @@
 extends ColorRect
 
+const NO_ONE_CUTSCENE = 1
 const FINAL_CUTSCENE = 2
 
 enum CUTSCENES {
@@ -108,6 +109,8 @@ func progress_story():
 	if storyIndex == len(textEntries):
 		if selected_cutscene == FINAL_CUTSCENE:
 			Events.end_game()
+		if selected_cutscene == NO_ONE_CUTSCENE:
+			Events.get_no_one.emit()
 		self.queue_free()
 		return false
 	return true

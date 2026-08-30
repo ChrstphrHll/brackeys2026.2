@@ -9,6 +9,7 @@ signal machine_lost
 signal recipe_unlocked
 signal recipe_selected
 
+signal get_no_one
 signal final_cutscene_ended
 
 signal scavenge_completed(message: String)
