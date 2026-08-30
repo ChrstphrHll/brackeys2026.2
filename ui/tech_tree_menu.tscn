@@ -14,7 +14,6 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [node name="TechTreeMenu" type="Control" unique_id=821310349]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +65,23 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Tech Tree"
 
+[node name="Spacer2" type="Control" parent="OuterMargin/Panel/InnerMargin/VBox/Header" unique_id=1548251140]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="OuterMargin/Panel/InnerMargin/VBox/Header" unique_id=229822688]
+layout_mode = 2
+text = "Hover for unlock descriptions and costs"
+
 [node name="Spacer" type="Control" parent="OuterMargin/Panel/InnerMargin/VBox/Header" unique_id=1232863280]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer3" type="Control" parent="OuterMargin/Panel/InnerMargin/VBox/Header" unique_id=433500809]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer4" type="Control" parent="OuterMargin/Panel/InnerMargin/VBox/Header" unique_id=563687751]
 layout_mode = 2
 size_flags_horizontal = 3
 

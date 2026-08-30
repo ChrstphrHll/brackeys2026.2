@@ -3,9 +3,21 @@
 [ext_resource type="Script" uid="uid://cdsm27jtbrnin" path="res://ui/crafting_recipe.gd" id="1_0l2m5"]
 [ext_resource type="Texture2D" uid="uid://b58r61ks3ekh5" path="res://icon.svg" id="2_rlpvi"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlpvi"]
+bg_color = Color(0.73864955, 0.5545487, 0.44607365, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fidx"]
+bg_color = Color(0.81960785, 0.5529412, 0.44705883, 1)
+skew = Vector2(0.22, 0)
+border_width_left = 20
+border_color = Color(0.8509804, 0.45882353, 0.2509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ollh"]
+bg_color = Color(0.8045867, 0.51798475, 0.3879766, 1)
+
 [node name="CraftingRecipe" type="Button" unique_id=2138880391]
 custom_minimum_size = Vector2(200, 80)
-custom_maximum_size = Vector2(200, 80)
+custom_maximum_size = Vector2(230, 80)
 propagate_maximum_size = true
 clip_contents = true
 anchors_preset = 15
@@ -19,6 +31,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlpvi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2fidx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ollh")
 toggle_mode = true
 script = ExtResource("1_0l2m5")
 resource = "battery"
