@@ -7,8 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bo17u31186itu" path="res://ui/tech_tree_menu.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://c3wpjll2xf65r" path="res://ui/crafting_menu.tscn" id="7_eow3j"]
 [ext_resource type="Script" uid="uid://bull8a7to2wxn" path="res://activity_log.gd" id="7_j5wjh"]
-[ext_resource type="PackedScene" uid="uid://8ahvfy8n88ym" path="res://ui/cutscene.tscn" id="8_j5wjh"]
-[ext_resource type="AudioStream" uid="uid://c3iar4gjm0lj0" path="res://assets/GameJam_1.mp3" id="8_vef74"]
+[ext_resource type="AudioStream" uid="uid://vqek8n2hq003" path="res://assets/GameJam_2_MainStage_Revision.mp3" id="8_main_music"]
 
 [node name="Game" type="Node" unique_id=1275175939]
 script = ExtResource("1_80nbo")
@@ -181,43 +180,6 @@ offset_top = 562.0
 offset_right = 732.0
 offset_bottom = 585.0
 
-[node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="FoldableContainer" type="FoldableContainer" parent="DebuggingUI" unique_id=580711963]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -142.0
-offset_top = -98.0
-offset_right = -2.0
-grow_horizontal = 0
-grow_vertical = 0
-pivot_offset_ratio = Vector2(1, 1)
-title = "🐛"
-title_alignment = 1
-title_position = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebuggingUI/FoldableContainer" unique_id=1138503624]
-layout_mode = 2
-
-[node name="MainMenu" type="Button" parent="DebuggingUI/FoldableContainer/VBoxContainer" unique_id=1756259338]
-layout_mode = 2
-text = "return to menu!"
-
-[node name="Opening" parent="." unique_id=926457140 instance=ExtResource("8_j5wjh")]
-visible = false
-
 [node name="NoOneCutscene" type="Timer" parent="." unique_id=1806355874]
 wait_time = 60.0
 one_shot = true
@@ -227,11 +189,10 @@ autostart = true
 wait_time = 2.0
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1233533009]
-stream = ExtResource("8_vef74")
+[node name="MainMusic" type="AudioStreamPlayer" parent="." unique_id=1233533009]
+stream = ExtResource("8_main_music")
 volume_db = -4.561
 autoplay = true
 
 [connection signal="pressed" from="UI/CraftingButton" to="." method="_on_crafting_button_pressed"]
-[connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="timeout" from="NoOneCutscene" to="." method="_on_no_one_cutscene_timeout"]

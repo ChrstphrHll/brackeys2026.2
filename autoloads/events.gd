@@ -11,6 +11,8 @@ signal recipe_selected
 
 signal get_no_one
 signal final_cutscene_ended
+signal cutscene_started(cutscene_id: int)
+signal cutscene_finished(cutscene_id: int)
 
 signal scavenge_completed(message: String)
 

@@ -2,6 +2,11 @@ extends ColorRect
 
 const NO_ONE_CUTSCENE = 1
 const FINAL_CUTSCENE = 2
+const DEFAULT_AUTO_ADVANCE_SECONDS = 6.5
+const NO_ONE_AUTO_ADVANCE_SECONDS = 10.0
+
+const NO_ONE_MUSIC = preload("res://assets/GameJam_1.mp3")
+const FINAL_MUSIC = preload("res://assets/GameJam_Rejoice.mp3")
 
 enum CUTSCENES {
 	OPENING,
@@ -12,8 +17,11 @@ enum CUTSCENES {
 @export var selected_cutscene: CUTSCENES
 
 
-@onready var timer = $Timer
+@onready var timer: Timer = $Timer
+@onready var music: AudioStreamPlayer = $Music
+
 var storyIndex = 0
+var auto_advance_enabled = true
 
 var pictures = []
 
@@ -85,20 +93,30 @@ var cutscene_setters = [
 
 
 func _ready():
-	assert(len(textEntries) == len(pictures), "Pictures and Entries must be the same length")
 	cutscene_setters[selected_cutscene].call()
+	assert(len(textEntries) == len(pictures), "Pictures and Entries must be the same length")
+	_configure_timing()
+	Events.cutscene_started.emit(selected_cutscene)
+	_configure_music()
 	set_screen()
 
+	if auto_advance_enabled:
+		timer.start()
 
-func _process(event):
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		if not progress_story():
 			return
 		set_screen()
-		timer.start()
+		if auto_advance_enabled:
+			timer.start()
 
 
 func _on_timer_timeout():
+	if not auto_advance_enabled:
+		return
+
 	if not progress_story():
 		return
 	set_screen()
@@ -107,6 +125,8 @@ func _on_timer_timeout():
 func progress_story():
 	storyIndex += 1
 	if storyIndex == len(textEntries):
+		Events.cutscene_finished.emit(selected_cutscene)
+
 		if selected_cutscene == FINAL_CUTSCENE:
 			Events.end_game()
 		if selected_cutscene == NO_ONE_CUTSCENE:
@@ -119,3 +139,25 @@ func progress_story():
 func set_screen():
 	$Story.text = textEntries[storyIndex]
 	$Image.texture = pictures[storyIndex]
+
+
+func _configure_timing() -> void:
+	timer.stop()
+	auto_advance_enabled = selected_cutscene != FINAL_CUTSCENE
+
+	if selected_cutscene == NO_ONE_CUTSCENE:
+		timer.wait_time = NO_ONE_AUTO_ADVANCE_SECONDS
+	else:
+		timer.wait_time = DEFAULT_AUTO_ADVANCE_SECONDS
+
+
+func _configure_music() -> void:
+	match selected_cutscene:
+		NO_ONE_CUTSCENE:
+			music.stream = NO_ONE_MUSIC
+		FINAL_CUTSCENE:
+			music.stream = FINAL_MUSIC
+		_:
+			return
+
+	music.play()
