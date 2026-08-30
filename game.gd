@@ -3,6 +3,11 @@ extends Node
 
 var machine_scene = preload("res://machines/machine.tscn")
 const CUTSCENE = preload("uid://8ahvfy8n88ym")
+const NO_ONE_CUTSCENE = 1
+const FINAL_CUTSCENE = 2
+
+
+@onready var main_music: AudioStreamPlayer = $MainMusic
 
 
 
@@ -65,12 +70,18 @@ var pending_transition_index: int = -1
 
 
 func _ready() -> void:
+	var main_music_stream := main_music.stream as AudioStreamMP3
+	if main_music_stream != null:
+		main_music_stream.loop = true
+
 	tech_tree_button.pressed.connect(
 		tech_tree_menu.open_menu
 	)
   
 	Events.final_cutscene_ended.connect(_on_main_menu_pressed)
 	Events.get_no_one.connect(_get_no_one)
+	Events.cutscene_started.connect(_on_cutscene_started)
+	Events.cutscene_finished.connect(_on_cutscene_finished)
 	Zones.zone_changed.connect(_play_final_cutscene)
 
 
@@ -284,12 +295,21 @@ func _on_crafting_button_pressed():
 
 func _on_no_one_cutscene_timeout():
 	var no_one_cutscene = CUTSCENE.instantiate()
-	no_one_cutscene.selected_cutscene = 1
+	no_one_cutscene.selected_cutscene = NO_ONE_CUTSCENE
 	add_child(no_one_cutscene)
 
 
 func _play_final_cutscene(zone):
 	if zone == 3:
 		var final = CUTSCENE.instantiate()
-		final.selected_cutscene = 2
+		final.selected_cutscene = FINAL_CUTSCENE
 		add_child(final)
+
+
+func _on_cutscene_started(_cutscene_id: int) -> void:
+	main_music.stream_paused = true
+
+
+func _on_cutscene_finished(cutscene_id: int) -> void:
+	if cutscene_id != FINAL_CUTSCENE:
+		main_music.stream_paused = false

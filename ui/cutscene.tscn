@@ -32,6 +32,8 @@ stretch_mode = 5
 
 [node name="Timer" type="Timer" parent="." unique_id=1157143006]
 wait_time = 6.487
-autostart = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+volume_db = -4.561
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

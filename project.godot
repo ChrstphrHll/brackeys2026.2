@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Trust No. 1"
-run/main_scene="uid://rl5fjnwjo0b2"
+run/main_scene="uid://0ay687agw33u"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/image="uid://dr5kysnbi245j"
 config/icon="uid://jw121l5c8rs4"
