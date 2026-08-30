@@ -14,7 +14,8 @@ func _ready():
 	Events.recipe_selected.connect(_on_recipe_selected)
 	
 	resource_image.texture = Resources.get_resource_icon(resource)
-	resource_name.text = resource
+	resource_name.text = \
+		Resources.get_resource_display_name(resource)
 	
 	var resource_costs = Resources.get_resource_crafting_cost(resource)
 	assert(resource_costs != null, "Only craftable resources")

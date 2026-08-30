@@ -11,6 +11,9 @@ extends Control
 func _ready():
 	close_button.pressed.connect(close_menu)
 	TechTree.node_unlocked.connect(_on_node_unlocked)
+	Zones.zone_changed.connect(
+		func(_zone): _rebuild_tree()
+	)
 
 	_rebuild_tree()
 
@@ -98,6 +101,16 @@ func _create_node_button(
 
 	button.custom_minimum_size = Vector2(80, 80)
 	button.focus_mode = Control.FOCUS_NONE
+	
+	button.text = node_data["name"]
+
+	button.custom_minimum_size = Vector2(
+		150,
+		80
+	)
+
+	button.autowrap_mode = \
+		TextServer.AUTOWRAP_WORD_SMART
 
 	button.tooltip_text = _build_tooltip(
 		path_name,
@@ -213,7 +226,11 @@ func _build_tooltip(
 ) -> String:
 	var cost_text = _format_cost(node_data["cost"])
 
-	var state_text: String
+	var state_text: String = \
+	TechTree.get_node_state_text(
+		path_name,
+		node_index
+	)
 
 	if TechTree.is_unlocked(path_name, node_index):
 		state_text = "Unlocked"
@@ -242,7 +259,9 @@ func _format_cost(costs: Dictionary) -> String:
 		pieces.append(
 			"%d %s" % [
 				costs[resource_name],
-				str(resource_name).capitalize()
+				Resources.get_resource_display_name(
+					resource_name
+				)
 			]
 		)
 
