@@ -14,6 +14,7 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [node name="TechTreeMenu" type="Control" unique_id=821310349]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
