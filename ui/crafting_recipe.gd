@@ -30,12 +30,11 @@ func _ready():
 		costs.add_child(instantiated_cost_helper)
 
 
-
 func _on_toggled(toggled_on):
 	if toggled_on:
+		print("its on now so were selectin", resource)
 		Events.select_recipe(resource)
-	else:
-		Events.select_recipe(null)
+	# TODO this needs to properly unselect but not urgent
 
 
 func _on_recipe_selected(resourceOrNull):
