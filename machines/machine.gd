@@ -6,8 +6,21 @@ class_name Machine
 static var next_machine_id: int = 1
 
 
+var machine_images = [
+	preload("res://assets/machines/Bulldozer2.png"),
+	preload("res://assets/machines/image_29.png"),
+	preload("res://assets/machines/image_31.png"),
+	preload("res://assets/machines/image_33.png"),
+	preload("res://assets/machines/image_34.png"),
+	preload("res://assets/machines/image_35.png"),
+	preload("res://assets/machines/Tractor2.png"),
+	preload("res://assets/machines/wagon.png"),
+	preload("res://assets/Bulldozer.png")
+]
+
+
 @export var machine_name: String = "Machine"
-@export var machine_icon: Texture2D = preload("res://assets/Bulldozer.png")
+@export var machine_icon: Texture2D = _get_random_machine()
 
 @export var is_player: bool = false
 
@@ -35,6 +48,10 @@ var completion_callback: Callable
 func _init():
 	id = next_machine_id
 	next_machine_id += 1
+
+
+func _get_random_machine():
+	var index = randi() % machine_images.size()
 
 
 func _ready():

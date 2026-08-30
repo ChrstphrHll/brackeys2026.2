@@ -53,6 +53,35 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="ActivityLog" type="PanelContainer" parent="UI" unique_id=278902719]
+layout_mode = 0
+offset_left = 22.33
+offset_top = 125.80499
+offset_right = 237.33
+offset_bottom = 267.80493
+mouse_filter = 2
+script = ExtResource("7_j5wjh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ActivityLog" unique_id=1895138478]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ActivityLog/MarginContainer" unique_id=761059380]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/ActivityLog/MarginContainer/VBoxContainer" unique_id=1729206976]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "ACTIVITY"
+
+[node name="Entries" type="Label" parent="UI/ActivityLog/MarginContainer/VBoxContainer" unique_id=840889604]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+
 [node name="MapMarkers" type="Control" parent="UI" unique_id=130764579]
 layout_mode = 1
 anchors_preset = 15
@@ -87,7 +116,7 @@ text = "City"
 layout_mode = 0
 offset_left = 25.0
 offset_top = 2.0
-offset_right = 526.0
+offset_right = 840.0
 offset_bottom = 111.0
 mouse_filter = 2
 color = Color(0.14703667, 0.06607689, 0.26568013, 1)
@@ -100,15 +129,20 @@ offset_right = 831.0
 offset_bottom = 68.0
 script = ExtResource("3_feb5d")
 
-[node name="Machines" type="VBoxContainer" parent="UI" unique_id=1846919649]
+[node name="MachinesScrollContainer" type="ScrollContainer" parent="UI" unique_id=1260706866]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -76.0
+offset_left = -399.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="Machines" type="VBoxContainer" parent="UI/MachinesScrollContainer" unique_id=1846919649]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="TechTreeButton" type="Button" parent="UI" unique_id=2015784784]
 layout_mode = 0
@@ -129,12 +163,16 @@ text = "Craft"
 [node name="TechTreeMenu" parent="UI" unique_id=821310349 instance=ExtResource("4_fc0e3")]
 z_index = 100
 layout_mode = 1
+offset_top = 91.0
+offset_right = -398.0
 
 [node name="ZoneConfirmDialog" type="ConfirmationDialog" parent="UI" unique_id=1452456144]
 
 [node name="CraftingMenu" parent="UI" unique_id=739515634 instance=ExtResource("7_eow3j")]
 visible = false
 layout_mode = 1
+offset_top = 93.0
+offset_right = -405.0
 
 [node name="ScavengeResult" type="Label" parent="UI" unique_id=805612542]
 layout_mode = 0
@@ -142,42 +180,6 @@ offset_left = 649.0
 offset_top = 562.0
 offset_right = 732.0
 offset_bottom = 585.0
-
-[node name="ActivityLog" type="PanelContainer" parent="UI" unique_id=278902719]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -234.0
-offset_top = -247.0
-offset_right = -1.0
-offset_bottom = -95.0
-grow_horizontal = 0
-grow_vertical = 0
-mouse_filter = 2
-script = ExtResource("7_j5wjh")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/ActivityLog" unique_id=1895138478]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/ActivityLog/MarginContainer" unique_id=761059380]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="UI/ActivityLog/MarginContainer/VBoxContainer" unique_id=1729206976]
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "ACTIVITY"
-
-[node name="Entries" type="Label" parent="UI/ActivityLog/MarginContainer/VBoxContainer" unique_id=840889604]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-autowrap_mode = 3
 
 [node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
 layout_mode = 3
@@ -214,6 +216,7 @@ layout_mode = 2
 text = "return to menu!"
 
 [node name="Opening" parent="." unique_id=926457140 instance=ExtResource("8_j5wjh")]
+visible = false
 
 [node name="NoOneCutscene" type="Timer" parent="." unique_id=1806355874]
 wait_time = 60.0

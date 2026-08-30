@@ -109,6 +109,7 @@ func _add_player():
 	var player = machine_scene.instantiate()
 
 	player.machine_name = "You"
+	player.machine_icon = preload("res://assets/you.png")
 	player.is_player = true
 
 	# The human is deliberately awful.
@@ -274,7 +275,7 @@ func _on_main_menu_pressed() -> void:
 
 
 func _on_machine_added(machine: Machine) -> void:
-	$UI/Machines.add_child(machine)
+	$UI/MachinesScrollContainer/Machines.add_child(machine)
 
 
 func _on_crafting_button_pressed():

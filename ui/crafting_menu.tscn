@@ -22,15 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_srlpo")
 
-[node name="Dimmer" type="ColorRect" parent="." unique_id=1696872541]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
 [node name="OuterMargin" type="MarginContainer" parent="." unique_id=2070994073]
 layout_mode = 1
 anchors_preset = 15
@@ -92,7 +83,7 @@ horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer/ResourceVBox/ResourceScrollBox" unique_id=439570529]
 layout_mode = 2
-columns = 4
+size_flags_horizontal = 3
 
 [node name="MachineVBox" type="VBoxContainer" parent="OuterMargin/Panel/InnerMargin/VBox/HBoxContainer" unique_id=11785157]
 layout_mode = 2
