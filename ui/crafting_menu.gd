@@ -12,7 +12,7 @@ signal machine_selected
 
 var recipe_scene = preload("res://ui/crafting_recipe.tscn")
 var machine_scene = preload("res://machines/machine.tscn")
-
+var known_recipes: Dictionary = {}
 var selected_recipe = null
 
 var currently_available_machines = {}
@@ -27,6 +27,11 @@ func _ready():
 	
 	Events.recipe_unlocked.connect(_new_crafting_recipe)
 	Events.recipe_selected.connect(_set_selected_recipe)
+	
+	Zones.zone_changed.connect(
+		_refresh_recipes
+	)
+	_refresh_recipes()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,9 +44,19 @@ func _on_close_button_pressed():
 
 
 func _new_crafting_recipe(resource):
-	var instantiated_recipe = recipe_scene.instantiate()
+	if known_recipes.has(resource):
+		return
+
+	known_recipes[resource] = true
+
+	var instantiated_recipe = \
+		recipe_scene.instantiate()
+
 	instantiated_recipe.resource = resource
-	grid_container.add_child(instantiated_recipe)
+
+	grid_container.add_child(
+		instantiated_recipe
+	)
 
 
 func _set_selected_recipe(resourceOrNull):
@@ -53,18 +68,38 @@ func _set_selected_recipe(resourceOrNull):
 
 
 func _add_available_machine(machine: Machine):
-	print("adding machine with id", machine.id)
-	machine_options.add_item(machine.machine_name, machine.id)
-	var item_id = machine_options.get_item_index(machine.id)
-	machine_options.set_item_metadata(item_id, machine.id)
+	if currently_available_machines.has(machine.id):
+		return
+
+	machine_options.add_item(
+		machine.machine_name,
+		machine.id
+	)
+
+	var item_index: int = int(
+		machine_options.get_item_index(machine.id)
+	)
+
+	machine_options.set_item_metadata(
+		item_index,
+		machine.id
+	)
+
 	currently_available_machines[machine.id] = machine
 
 
 func _lose_available_machine(machine: Machine):
-	if currently_available_machines.has(machine.id):
-		var item_id = machine_options.get_item_id(machine.id)
-		machine_options.remove_item(item_id)
-		currently_available_machines.erase(machine)
+	if not currently_available_machines.has(machine.id):
+		return
+
+	var item_index: int = int(
+		machine_options.get_item_index(machine.id)
+	)
+
+	if item_index >= 0:
+		machine_options.remove_item(item_index)
+
+	currently_available_machines.erase(machine.id)
 
 
 func _on_craft_button_pressed():
@@ -82,3 +117,8 @@ func _on_craft_button_pressed():
 
 func _on_machine_options_item_selected(index):
 	pass # Replace with function body.
+	
+
+func _refresh_recipes(_zone: int = -1):
+	for resource in Resources.get_craftable_resources():
+		_new_crafting_recipe(resource)

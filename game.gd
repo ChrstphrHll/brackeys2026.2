@@ -1,9 +1,27 @@
 extends Node
 
 
-@onready var machines = [$UI/Machines/Machine]
 var machine_scene = preload("res://machines/machine.tscn")
 
+# Scavenging
+# ------------------------------
+
+@onready var scavenge_result_label: Label = \
+	$UI/ScavengeResult
+
+@onready var scavenge_message_timer: Timer = \
+	$ScavengeMessageTimer
+	
+	
+func _on_scavenge_completed(message: String):
+	scavenge_result_label.text = message
+	scavenge_result_label.show()
+
+	scavenge_message_timer.start()
+
+
+func _on_scavenge_message_timeout():
+	scavenge_result_label.hide()
 
 # TECH TREE
 # -------------------------
@@ -46,13 +64,49 @@ func _ready() -> void:
 	tech_tree_button.pressed.connect(
 		tech_tree_menu.open_menu
 	)
-	Events.machine_added.connect(_on_machine_added)
-	add_new_machine()
 
-func add_new_machine():
-	var instantiated_machine = machine_scene.instantiate()
-	instantiated_machine.machine_name = "You"
-	Events.add_machine(instantiated_machine)
+	Events.machine_added.connect(
+		_on_machine_added
+	)
+
+	for i in range(zone_buttons.size()):
+		zone_buttons[i].pressed.connect(
+			_on_zone_button_pressed.bind(i)
+		)
+
+	zone_confirm_dialog.confirmed.connect(
+		_on_zone_confirmed
+	)
+
+	Zones.zone_changed.connect(
+		_refresh_zone_buttons
+	)
+	Events.scavenge_completed.connect(
+		_on_scavenge_completed
+	)
+
+	scavenge_message_timer.timeout.connect(
+		_on_scavenge_message_timeout
+	)
+
+	scavenge_result_label.hide()
+
+	_add_player()
+
+	_refresh_zone_buttons()
+
+
+func _add_player():
+	var player = machine_scene.instantiate()
+
+	player.machine_name = "You"
+	player.is_player = true
+
+	# The human is deliberately awful.
+	player.base_speed = 0.55
+	player.base_efficiency = 1.0
+
+	Events.add_machine(player)
 
 
 	Events.machine_added.connect(
@@ -210,7 +264,9 @@ func _format_cost(costs: Dictionary) -> String:
 		pieces.append(
 			"%d %s" % [
 				costs[resource_name],
-				str(resource_name).capitalize()
+				Resources.get_resource_display_name(
+					resource_name
+				)
 			]
 		)
 

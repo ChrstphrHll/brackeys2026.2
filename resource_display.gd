@@ -4,10 +4,15 @@ var resource_entries: Dictionary = {}
 
 
 func _ready():
-	Resources.resource_changed.connect(_on_resource_changed)
+	Resources.resource_changed.connect(
+		_on_resource_changed
+	)
 
-	for resource_name in Resources.get_resource_names():
-		create_resource_entry(resource_name)
+	Zones.zone_changed.connect(
+		_on_zone_changed
+	)
+
+	_add_visible_resources()
 
 
 func create_resource_entry(resource_name: String):
@@ -34,7 +39,8 @@ func create_resource_entry(resource_name: String):
 
 	# Resource name
 	var name_label = Label.new()
-	name_label.text = resource_name.capitalize()
+	name_label.text = \
+	Resources.get_resource_display_name(resource_name)
 	name_label.add_theme_font_size_override("font_size", 11)
 	column.add_child(name_label)
 
@@ -69,3 +75,17 @@ func _on_resource_changed(resource_name: String, new_amount: int):
 func update_resource_entry(resource_name: String, amount: int):
 	var entry = resource_entries[resource_name]
 	entry["amount_label"].text = str(amount)
+	
+
+
+func _on_zone_changed(_zone: int):
+	_add_visible_resources()
+
+
+func _add_visible_resources():
+	for resource_name in \
+		Resources.get_visible_resource_names():
+
+		create_resource_entry(
+			resource_name
+		)

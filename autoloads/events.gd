@@ -9,6 +9,8 @@ signal machine_lost
 signal recipe_unlocked
 signal recipe_selected
 
+signal scavenge_completed(message: String)
+
 func add_machine(machine: Machine):
 	machine_added.emit(machine)
 
@@ -31,3 +33,7 @@ func unlock_recipe(resource: String):
 
 func select_recipe(resourceOrNull):
 	recipe_selected.emit(resourceOrNull) 
+
+
+func report_scavenge(message: String):
+	scavenge_completed.emit(message)
