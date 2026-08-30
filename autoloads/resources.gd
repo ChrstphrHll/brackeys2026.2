@@ -37,8 +37,9 @@ var _resources: Dictionary = {
 	"nuts_and_bolts": {
 		"display_name": "Nuts & Bolts",
 		"amount": 0,
-		"gatherable": false,
+		"gatherable": true,
 		"unlock_zone": 0,
+		"gather_zone": 2,
 		"difficulty": 1.0,
 		"base_yield": 1,
 		"icon": preload("res://assets/Nutsandbolts.png")
@@ -145,7 +146,10 @@ func get_gatherable_resources() -> Array[String]:
 
 		if (
 			info.get("gatherable", false)
-			and info.get("unlock_zone", 0) <= Zones.current_zone
+			and info.get(
+				"gather_zone",
+				info.get("unlock_zone", 0)
+			) <= Zones.current_zone
 		):
 			gatherable.append(resource_name)
 

@@ -30,6 +30,7 @@ var machine_images = [
 
 var id: int
 var current_task: String = ""
+var pending_gather_resource: String = ""
 
 var task_menu_entries: Array[Dictionary] = []
 
@@ -131,7 +132,8 @@ func is_busy() -> bool:
 func start_task(
 	task_name: String,
 	time_cost: float,
-	on_complete: Callable
+	on_complete: Callable,
+	allow_reselection_while_busy: bool = false
 ) -> bool:
 
 	if is_busy():
@@ -140,7 +142,7 @@ func start_task(
 	current_task = task_name
 	completion_callback = on_complete
 
-	task_selector.disabled = true
+	task_selector.disabled = not allow_reselection_while_busy
 	task_selector.text = task_name
 
 	progress_bar.show()
@@ -152,6 +154,21 @@ func start_task(
 	task_timer.start(time_cost)
 
 	return true
+
+
+func queue_gather_resource(resource: String) -> void:
+	pending_gather_resource = resource
+	task_selector.text = "Next: %s" % \
+		Resources.get_resource_display_name(resource)
+
+
+func take_pending_gather_resource(fallback: String) -> String:
+	if pending_gather_resource.is_empty():
+		return fallback
+
+	var resource: String = pending_gather_resource
+	pending_gather_resource = ""
+	return resource
 
 
 func _on_task_timer_timeout():
