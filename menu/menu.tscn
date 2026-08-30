@@ -1,8 +1,43 @@
 [gd_scene format=3 uid="uid://0ay687agw33u"]
 
 [ext_resource type="Script" uid="uid://cb1fqedlb65vc" path="res://menu/menu.gd" id="1_j0t7f"]
+[ext_resource type="Texture2D" uid="uid://cp1n5s5a3kb2w" path="res://assets/title.png" id="2_g18jx"]
 
-[node name="Menu" type="CenterContainer" unique_id=1804824571]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ynx3y"]
+bg_color = Color(0.6784314, 0.3647059, 0.24313726, 1)
+skew = Vector2(0.19, 0.085)
+border_width_left = 19
+border_color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+corner_radius_top_left = 38
+corner_radius_bottom_right = 45
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.5294118)
+shadow_offset = Vector2(-6.365, -2.99)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g18jx"]
+bg_color = Color(0.6365146, 0.3425947, 0.15008098, 1)
+skew = Vector2(0.4, 0.085)
+border_width_left = 9
+border_color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+corner_radius_top_left = 38
+corner_radius_bottom_right = 45
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.5294118)
+shadow_offset = Vector2(-6.365, -2.99)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nwqt"]
+bg_color = Color(0.8218621, 0.47669923, 0.34450263, 1)
+skew = Vector2(0.4, 0.085)
+border_width_left = 19
+border_color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+corner_radius_top_left = 38
+corner_radius_bottom_right = 45
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.5294118)
+shadow_offset = Vector2(-6.365, -2.99)
+
+[node name="Menu" type="Control" unique_id=59110878]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,19 +45,32 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j0t7f")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=528963628]
-layout_mode = 2
+[node name="ColorRect" type="ColorRect" parent="." unique_id=84636376]
+layout_mode = 0
+offset_right = 1278.0
+offset_bottom = 721.0
 
-[node name="Title" type="Label" parent="VBoxContainer" unique_id=1122893387]
-layout_mode = 2
-text = "This is the menu"
+[node name="TextureRect" type="TextureRect" parent="." unique_id=455022381]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_g18jx")
+expand_mode = 1
+stretch_mode = 4
 
-[node name="Subtitle" type="Label" parent="VBoxContainer" unique_id=823802653]
-layout_mode = 2
-text = "subtitle"
-
-[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=507729316]
-layout_mode = 2
+[node name="PlayButton" type="Button" parent="." unique_id=507729316]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 451.0
+offset_right = 773.0
+offset_bottom = 582.0
+theme_override_font_sizes/font_size = 53
+theme_override_styles/normal = SubResource("StyleBoxFlat_ynx3y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g18jx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6nwqt")
 text = "Play"
 
-[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

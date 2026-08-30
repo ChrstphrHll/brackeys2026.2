@@ -1,5 +1,7 @@
 extends ColorRect
 
+const FINAL_CUTSCENE = 2
+
 enum CUTSCENES {
 	OPENING,
 	NO_ONE,
@@ -49,11 +51,13 @@ const NO_ONE_TEXT = [
 ]
 
 const ENDING = [
-	preload("res://assets/Ending.png")
+	preload("res://assets/Ending.png"),
+	preload("res://assets/credits.png")
 ]
 
 const ENDING_TEXT = [
-	"You return to the city to rejoicing neighbors"
+	"You return to the city to rejoicing neighbors",
+	"A Game Jam Game by John, Charles, Christopher, and Adam."
 ]
 
 
@@ -87,7 +91,6 @@ func _ready():
 
 func _process(event):
 	if Input.is_action_just_pressed("ui_accept"):
-		print("scond")
 		if not progress_story():
 			return
 		set_screen()
@@ -103,6 +106,8 @@ func _on_timer_timeout():
 func progress_story():
 	storyIndex += 1
 	if storyIndex == len(textEntries):
+		if selected_cutscene == FINAL_CUTSCENE:
+			Events.end_game()
 		self.queue_free()
 		return false
 	return true

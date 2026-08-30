@@ -174,5 +174,10 @@ text = "return to menu!"
 
 [node name="Opening" parent="." unique_id=926457140 instance=ExtResource("8_j5wjh")]
 
+[node name="NoOneCutscene" type="Timer" parent="." unique_id=1806355874]
+wait_time = 60.0
+autostart = true
+
 [connection signal="pressed" from="UI/CraftingButton" to="." method="_on_crafting_button_pressed"]
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="timeout" from="NoOneCutscene" to="." method="_on_no_one_cutscene_timeout"]

@@ -3,8 +3,8 @@ extends Node
 
 @onready var machines = [$UI/Machines/Machine]
 var machine_scene = preload("res://machines/machine.tscn")
+const CUTSCENE = preload("uid://8ahvfy8n88ym")
 
-# CUTSCENE TRIGGERS
 
 
 
@@ -51,6 +51,8 @@ func _ready() -> void:
 		tech_tree_menu.open_menu
 	)
 	Events.machine_added.connect(_on_machine_added)
+	Events.final_cutscene_ended.connect(_on_main_menu_pressed)
+	Zones.zone_changed.connect(_play_final_cutscene)
 	add_new_machine()
 
 func add_new_machine():
@@ -234,3 +236,16 @@ func _on_machine_added(machine: Machine) -> void:
 
 func _on_crafting_button_pressed():
 	$UI/CraftingMenu.show()
+
+
+func _on_no_one_cutscene_timeout():
+	var no_one_cutscene = CUTSCENE.instantiate()
+	no_one_cutscene.selected_cutscene = 1
+	add_child(no_one_cutscene)
+
+
+func _play_final_cutscene(zone):
+	if zone == 3:
+		var final = CUTSCENE.instantiate()
+		final.selected_cutscene = 2
+		add_child(final)

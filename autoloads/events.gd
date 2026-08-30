@@ -9,6 +9,9 @@ signal machine_lost
 signal recipe_unlocked
 signal recipe_selected
 
+signal final_cutscene_ended
+
+
 func add_machine(machine: Machine):
 	machine_added.emit(machine)
 
@@ -31,3 +34,7 @@ func unlock_recipe(resource: String):
 
 func select_recipe(resourceOrNull):
 	recipe_selected.emit(resourceOrNull) 
+
+
+func end_game():
+	final_cutscene_ended.emit()
