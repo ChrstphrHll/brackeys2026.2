@@ -13,6 +13,8 @@ signal final_cutscene_ended
 
 signal scavenge_completed(message: String)
 
+signal activity_logged(message: String)
+
 func add_machine(machine: Machine):
 	machine_added.emit(machine)
 
@@ -42,3 +44,7 @@ func end_game():
   
 func report_scavenge(message: String):
 	scavenge_completed.emit(message)
+
+
+func log_activity(message: String) -> void:
+	activity_logged.emit(message)

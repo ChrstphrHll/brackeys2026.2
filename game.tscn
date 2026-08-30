@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cq07e5l4s8y8b" path="res://resource_display.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bo17u31186itu" path="res://ui/tech_tree_menu.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://c3wpjll2xf65r" path="res://ui/crafting_menu.tscn" id="7_eow3j"]
+[ext_resource type="Script" uid="uid://bull8a7to2wxn" path="res://activity_log.gd" id="7_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://8ahvfy8n88ym" path="res://ui/cutscene.tscn" id="8_j5wjh"]
 
 [node name="Game" type="Node" unique_id=1275175939]
@@ -140,6 +141,42 @@ offset_left = 649.0
 offset_top = 562.0
 offset_right = 732.0
 offset_bottom = 585.0
+
+[node name="ActivityLog" type="PanelContainer" parent="UI" unique_id=278902719]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -234.0
+offset_top = -247.0
+offset_right = -1.0
+offset_bottom = -95.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("7_j5wjh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ActivityLog" unique_id=1895138478]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ActivityLog/MarginContainer" unique_id=761059380]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/ActivityLog/MarginContainer/VBoxContainer" unique_id=1729206976]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "ACTIVITY"
+
+[node name="Entries" type="Label" parent="UI/ActivityLog/MarginContainer/VBoxContainer" unique_id=840889604]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
 
 [node name="DebuggingUI" type="Control" parent="." unique_id=2104493506]
 layout_mode = 3
