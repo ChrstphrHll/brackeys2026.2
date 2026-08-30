@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c3wpjll2xf65r" path="res://ui/crafting_menu.tscn" id="7_eow3j"]
 [ext_resource type="Script" uid="uid://bull8a7to2wxn" path="res://activity_log.gd" id="7_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://8ahvfy8n88ym" path="res://ui/cutscene.tscn" id="8_j5wjh"]
+[ext_resource type="AudioStream" uid="uid://c3iar4gjm0lj0" path="res://assets/GameJam_1.mp3" id="8_vef74"]
 
 [node name="Game" type="Node" unique_id=1275175939]
 script = ExtResource("1_80nbo")
@@ -216,11 +217,17 @@ text = "return to menu!"
 
 [node name="NoOneCutscene" type="Timer" parent="." unique_id=1806355874]
 wait_time = 60.0
+one_shot = true
 autostart = true
 
 [node name="ScavengeMessageTimer" type="Timer" parent="." unique_id=1371247895]
 wait_time = 2.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1233533009]
+stream = ExtResource("8_vef74")
+volume_db = -4.561
+autoplay = true
 
 [connection signal="pressed" from="UI/CraftingButton" to="." method="_on_crafting_button_pressed"]
 [connection signal="pressed" from="DebuggingUI/FoldableContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
